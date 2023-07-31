@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development webpack-dev-server", 
-    "build": "cross-env NODE_ENV=production webpack", 
-    "tunnel": "ngrok http --region=us --hostname=redfoxai.ngrok.io 3000", 
+    "start": "cross-env NODE_ENV=development webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack",
+    "tunnel": "ngrok http --region=us --hostname=redfoxai.ngrok.io 3000",
     "amplify": "chmod +x ./node_modules/.bin/react-scripts build"
   },
   "repository": {
@@ -34,7 +34,9 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "chart.js": "^4.3.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.0.5"

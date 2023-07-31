@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ChartComponent } from './chart';
 
 export const Main: React.FC = () => {
+    var fr = new FileReader();
+    
     return (
-        <styles.container>Hello World!</styles.container>
+        <div>
+            <ChartComponent/>
+        </div>
+        
     )
 };
 
