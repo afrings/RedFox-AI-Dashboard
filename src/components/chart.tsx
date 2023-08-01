@@ -1,5 +1,5 @@
 import React from 'react';
-import jsonData from './data.json'
+import jsonData from './covidData.json'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -35,17 +35,18 @@ export const options = {
 
 function formatData() {
     var dataArray: number[] = [];
-    jsonData.forEach(classroom => {
-        dataArray.push(Number(classroom[1]))
-    }) 
+    console.log(jsonData)
     return dataArray;
 }
 
 function labels() {
     var labels: string[] = [];
-    jsonData.forEach(classroom => {
-        labels.push(String(classroom[0]))
-    })
+    // iterate over jsonData props and push to labels array
+    for (var prop in jsonData) {
+        if (Object.prototype.hasOwnProperty.call(jsonData, prop)) {
+            labels.push(prop)
+        }
+    }
     return labels;
 }
 
@@ -53,7 +54,7 @@ export const data = {
     labels: labels(),
     datasets: [
         {
-            label: 'Number of Students',
+            label: '',
             data: formatData(),
             backgroundColor: 'rbga(255, 255, 255, 0.85)',
         }
