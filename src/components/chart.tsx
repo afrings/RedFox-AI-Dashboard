@@ -22,15 +22,15 @@ ChartJS.register(
 
 export const options = {
     responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
+    plugins: {
+        legend: {
+            position: 'top' as const,
+        },
+        title: {
+            display: true,
+            text: 'Number of Students in Each Classroom',
+        },
     },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
 };
 
 function formatData() {
@@ -53,9 +53,9 @@ export const data = {
     labels: labels(),
     datasets: [
         {
-            label: 'Classrooms and Number of Students',
+            label: 'Number of Students',
             data: formatData(),
-            backgroundColor: 'rbga(255, 99, 132, 0.5)',
+            backgroundColor: 'rbga(255, 255, 255, 0.85)',
         }
     ],
 };
