@@ -1,21 +1,20 @@
 import React from 'react';
+import jsonData from './data.json'
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
   } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend
@@ -23,48 +22,47 @@ ChartJS.register(
 
 export const options = {
     responsive: true,
-    plugins: {
-        legend: {
-            position: 'top' as const,
-        },
-        title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-        },
+  plugins: {
+    legend: {
+      position: 'top' as const,
     },
+    title: {
+      display: true,
+      text: 'Chart.js Bar Chart',
+    },
+  },
 };
 
-const labels = ["January", 'February', 'March', 'April', 'May', 'June', 'July'];
+function formatData() {
+    var dataArray: number[] = [];
+    jsonData.forEach(classroom => {
+        dataArray.push(Number(classroom[1]))
+    }) 
+    return dataArray;
+}
+
+function labels() {
+    var labels: string[] = [];
+    jsonData.forEach(classroom => {
+        labels.push(String(classroom[0]))
+    })
+    return labels;
+}
 
 export const data = {
-  labels,
-  datasets: [
-    {
-        label: 'Dataset 1',
-        data: labels.map(() => 10),
-        borderColor: 'rgb(53, 53, 235)',
-        backgroundColor: 'rgba(53, 53, 235, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => 5),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    {
-        label: 'Dataset 3',
-        data: labels.map(() => 8),
-        borderColor: 'rgb(53, 162, 15)',
-        backgroundColor: 'rgba(53, 162, 15, 0.5)',
-      },
-  ],
+    labels: labels(),
+    datasets: [
+        {
+            label: 'Classrooms and Number of Students',
+            data: formatData(),
+            backgroundColor: 'rbga(255, 99, 132, 0.5)',
+        }
+    ],
 };
 
 export const ChartComponent: React.FC = () => {
-
-    
+    console.log(formatData())
     return (
-        <Line options={options} data={data} />
-        
+        <Bar options={options} data={data} />
     )
 };
