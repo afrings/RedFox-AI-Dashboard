@@ -20,6 +20,13 @@ ChartJS.register(
     Legend
 );
 
+var attributes:string[] = []
+Object.entries(jsonData.KY).forEach(attribute => {
+    attributes.push(attribute[0])
+})
+
+const attributeNum = 98;
+
 export const options = {
     responsive: true,
     plugins: {
@@ -28,14 +35,17 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'Number of Students in Each Classroom',
+            text: 'Covid Data by State on 2022/15/25',
         },
     },
 };
 
 function formatData() {
     var dataArray: number[] = [];
-    console.log(jsonData)
+    Object.entries(jsonData).forEach(state => {
+        dataArray.push((state[1] as any)[attributes[attributeNum]])
+    })
+    console.log(dataArray);
     return dataArray;
 }
 
@@ -54,7 +64,7 @@ export const data = {
     labels: labels(),
     datasets: [
         {
-            label: '',
+            label: attributes[attributeNum],
             data: formatData(),
             backgroundColor: 'rbga(255, 255, 255, 0.85)',
         }
@@ -62,7 +72,6 @@ export const data = {
 };
 
 export const ChartComponent: React.FC = () => {
-    console.log(formatData())
     return (
         <Bar options={options} data={data} />
     )
