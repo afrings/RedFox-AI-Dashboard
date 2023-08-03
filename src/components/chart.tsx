@@ -35,7 +35,7 @@ export const options = {
         },
         title: {
             display: true,
-            text: 'Covid Data by State on 2022/15/25',
+            text: 'Covid Data by State',
         },
     },
 };
