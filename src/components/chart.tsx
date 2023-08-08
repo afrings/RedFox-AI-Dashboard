@@ -122,6 +122,8 @@ export const data = {
 
 export const ChartComponent: React.FC = () => {
     return (
-        <Bar options={options} data={data} />
+        <div>
+            <Bar options={options} data={data} />
+        </div>
     )
 };
