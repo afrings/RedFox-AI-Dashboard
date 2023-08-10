@@ -105,17 +105,17 @@ export const data = {
         {
             label: attributes[attributeNum],
             data: formatData(attributeNum),
-            backgroundColor: 'rgba(0, 0, 0, 1)',
+            backgroundColor: 'rgba(0, 119, 187, 1)',
         },
         {
             label: attributes[attributeNum + 1],
             data: formatData(attributeNum + 1),
-            backgroundColor: 'rgba(125, 125, 255, 1)',
+            backgroundColor: 'rgba(51, 187, 238, 1)',
         },
         {
             label: attributes[attributeNum + 2],
             data: formatData(attributeNum + 2),
-            backgroundColor: 'rgba(255, 125, 125, 1)',
+            backgroundColor: 'rgba(0, 153, 136, 1)',
         },
     ],
 };
