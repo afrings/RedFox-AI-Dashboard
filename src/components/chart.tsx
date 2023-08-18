@@ -1,5 +1,5 @@
 import React from 'react';
-import jsonData from './covidData.json'
+import jsonData from './fakePatientData.json'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -21,7 +21,7 @@ ChartJS.register(
 );
 
 // a giant array of all the recorded key names for each state
-var attributes:string[] = ['state', 'date', 'critical_staffing_shortage_today_yes', 'critical_staffing_shortage_today_no', 'critical_staffing_shortage_today_not_reported', 
+var attributes:string[] = ['Rate Your Experience (1-10)', 'Issues Resolved', 'Time to Completion (hrs)', 'state', 'date', 'critical_staffing_shortage_today_yes', 'critical_staffing_shortage_today_no', 'critical_staffing_shortage_today_not_reported', 
 'critical_staffing_shortage_anticipated_within_week_yes', 'critical_staffing_shortage_anticipated_within_week_no', 'critical_staffing_shortage_anticipated_within_week_not_reported', 
 'hospital_onset_covid', 'hospital_onset_covid_coverage', 'inpatient_beds', 'inpatient_beds_coverage', 'inpatient_beds_used', 'inpatient_beds_used_coverage', 
 'inpatient_beds_used_covid', 'inpatient_beds_used_covid_coverage', 'previous_day_admission_adult_covid_confirmed', 'previous_day_admission_adult_covid_confirmed_coverage', 
@@ -64,7 +64,7 @@ var attributes:string[] = ['state', 'date', 'critical_staffing_shortage_today_ye
 'staffed_pediatric_icu_bed_occupancy', 'staffed_pediatric_icu_bed_occupancy_coverage', 'total_staffed_pediatric_icu_beds', 'total_staffed_pediatric_icu_beds_coverage']
 
 // sets the index of the key that will be displayed
-const attributeNum = 5;
+const attributeNum = 0;
 
 export const options = {
     responsive: true,
