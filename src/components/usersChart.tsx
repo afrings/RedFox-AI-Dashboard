@@ -34,9 +34,5 @@ export const data = {
 };
 
 export const UserChart: React.FC = () => {
-    return (
-        <div>
-            <Pie data={data}/>
-        </div>
-    )
+    return <Pie data={data}/>
 };
