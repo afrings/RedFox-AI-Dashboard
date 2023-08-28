@@ -7,20 +7,27 @@ export const Main: React.FC = () => {
     var fr = new FileReader();
     
     return (
-        <div style={topLeft}>
-            <div style={usersChartStyle}>
-                <UserChart/>
+        <div>
+            <div style={topLeft}>
+                <div style={usersChartStyle}>
+                    <UserChart/>
+                </div>
+                <div style={returnsChartStyle}>
+                    <ReturnsChart/>
+                </div>
             </div>
-            <div style={returnsChartStyle}>
-                <ReturnsChart/>
+            <div>
+
             </div>
         </div>
+        
     )
 };
 
 const usersChartStyle = {
-    maxWidth: '35%',
+    maxWidth: '33%',
     float: 'left',
+    marginBottom: '15px'
 } as React.CSSProperties;
 
 const returnsChartStyle = {
@@ -32,4 +39,7 @@ const returnsChartStyle = {
 const topLeft = {
     maxWidth: '50%',
     minWidth: '30%',
+    overflow: 'auto',
+    border: '2px solid black'
 } as React.CSSProperties;
+
