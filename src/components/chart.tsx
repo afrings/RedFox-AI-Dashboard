@@ -64,7 +64,7 @@ var attributes:string[] = ['Rate Your Experience (1-10)', 'Issues Resolved', 'Ti
 'staffed_pediatric_icu_bed_occupancy', 'staffed_pediatric_icu_bed_occupancy_coverage', 'total_staffed_pediatric_icu_beds', 'total_staffed_pediatric_icu_beds_coverage']
 
 // sets the index of the key that will be displayed
-const attributeNum = 0;
+const attributeNum = 24;
 
 export const options = {
     responsive: true,
