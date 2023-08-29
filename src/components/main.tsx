@@ -34,14 +34,17 @@ export const Main: React.FC = () => {
     )
 };
 
+let height = window.innerHeight/2.2;
 const usersChartStyle = {
     maxWidth: '33%',
+    minHeight: height,
     float: 'left',
     marginBottom: '15px'
 } as React.CSSProperties;
 
 const returnsChartStyle = {
     maxWidth: '100%',
+    minHeight: height,
     minWidth: '65%',
     float: 'left',
 } as React.CSSProperties;
@@ -52,12 +55,12 @@ const topLeft = {
     overflow: 'auto',
     border: '2px solid black',
     borderBottom: '1px solid black',
-    float: 'left',
 } as React.CSSProperties;
 
 const reviewsChartStyle = {
     maxWidth: '100%',
     minWidth: '49%',
+    minHeight: height,
     border: '2px solid black',
     borderTop: '1px solid black',
     borderRight: '1px solid black',
@@ -67,6 +70,7 @@ const reviewsChartStyle = {
 const problemsChartStyle = {
     maxWidth: '100%',
     minWidth: '49%',
+    minHeight: height,
     border: '2px solid black',
     borderTop: '1px solid black',
     borderLeft: '1px solid black',
@@ -77,5 +81,4 @@ const bottomLeft = {
     maxWidth: '50.9%',
     minWidth: '30%',
     overflow: 'auto',
-    float: 'left',
 } as React.CSSProperties;

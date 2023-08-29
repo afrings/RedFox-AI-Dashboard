@@ -6,6 +6,10 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const options = {
+  maintainAspectRatio: false,
+}
+
 export const data = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
@@ -34,5 +38,5 @@ export const data = {
 };
 
 export const UserChart: React.FC = () => {
-    return <Pie data={data}/>
+    return <Pie options={options} data={data}/>
 };
