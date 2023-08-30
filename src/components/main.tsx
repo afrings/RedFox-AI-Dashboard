@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import { UserChart } from './usersChart';
 import { ReturnsChart } from './returnsChart';
 import { ReviewsChart } from './reviewsChart';
 import { IssuesChart } from './issuesChart';
 import { TimeChart } from './timeChart';
 import { InteractionsChart } from './interactionsChart';
+import { CostChart } from './costChart';
 
 export const Main: React.FC = () => {
     var fr = new FileReader();
@@ -21,16 +21,14 @@ export const Main: React.FC = () => {
                 </div>
             </div>
             <div>
-            
-            <div style={topRight}>
-                <div style={timeChartStyle}>
-                    <TimeChart/>
+                <div style={topRight}>
+                    <div style={timeChartStyle}>
+                        <TimeChart/>
+                    </div>
+                    <div style={interactionsChartStyle}>
+                        <InteractionsChart/>
+                    </div>
                 </div>
-                <div style={interactionsChartStyle}>
-                    <InteractionsChart/>
-                </div>
-            </div>
-
             </div>
             <div style={bottomLeft}>
                 <div style={reviewsChartStyle}>
@@ -40,6 +38,11 @@ export const Main: React.FC = () => {
                     <IssuesChart/>
                 </div>
             </div>
+            <div>
+                <div style={costChartStyle}>
+                    <CostChart/>
+                </div>
+            </div>
         </div>
         
     )
@@ -47,7 +50,7 @@ export const Main: React.FC = () => {
 
 let height = window.innerHeight;
 let width = window.innerWidth;
-let heightConst = 2.1;
+let heightConst = 2.2;
 const usersChartStyle = {
     height: height/heightConst,
     float: 'left',
@@ -89,6 +92,7 @@ const topRight = {
     borderLeft: '1px solid black',
     borderBottom: '1px solid black',
     float: 'left',
+    borderRadius: '0px 25px 0px 0px',
 } as React.CSSProperties;
 
 const reviewsChartStyle = {
@@ -99,6 +103,7 @@ const reviewsChartStyle = {
     borderTop: '1px solid black',
     borderRight: '1px solid black',
     float: 'left',
+    borderRadius: '0px 0px 0px 25px',
 } as React.CSSProperties;
 
 const problemsChartStyle = {
@@ -117,4 +122,10 @@ const bottomLeft = {
     overflow: 'auto',
     float: 'left',
     clear: 'left',
+} as React.CSSProperties;
+
+const costChartStyle = {
+    height: height/heightConst,
+    width: '60%',
+    float: 'left',
 } as React.CSSProperties;
