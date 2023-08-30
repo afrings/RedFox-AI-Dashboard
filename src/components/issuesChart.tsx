@@ -55,6 +55,6 @@ export const data = {
   ],
 };
 
-export const ProblemsChart: React.FC = () => {
+export const IssuesChart: React.FC = () => {
   return <Bar options={options} data={data} />;
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { UserChart } from './usersChart';
 import { ReturnsChart } from './returnsChart';
 import { ReviewsChart } from './reviewsChart';
-import { ProblemsChart } from './problemsChart';
+import { IssuesChart } from './issuesChart';
 
 export const Main: React.FC = () => {
     var fr = new FileReader();
@@ -26,7 +26,7 @@ export const Main: React.FC = () => {
                     <ReviewsChart/>
                 </div>
                 <div style={problemsChartStyle}>
-                    <ProblemsChart/>
+                    <IssuesChart/>
                 </div>
             </div>
         </div>

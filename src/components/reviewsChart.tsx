@@ -33,7 +33,7 @@ export const options = {
   },
 };
 
-const labels = ['January', 'February', 'March',];
+const labels = ['User 1', 'User 2', 'User 3',];
 
 const format = () => {
   return labels.map(() => Math.random() * 100)
