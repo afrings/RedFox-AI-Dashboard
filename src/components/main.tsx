@@ -36,11 +36,9 @@ export const Main: React.FC = () => {
                     <IssuesChart/>
                 </div>
             </div>
-            {/* <div>
-                <div style={costChartStyle}>
-                    <CostChart/>
-                </div>
-            </div> */}
+            <div style={costChartStyle}>
+                <CostChart/>
+            </div>
         </div>
         
     )
@@ -54,38 +52,35 @@ let topRightHeight = 40;
 
 const topLeft = {
     position: 'absolute',
-    width: topLeftWidth + 'vw',
-    height: topLeftHeight + 'vh',
+    width: topLeftWidth + '%',
+    height: topLeftHeight + '%',
     overflow: 'auto',
     border: '0.2vmin solid black',
-    borderBottom: '0.1vmin solid black',
     borderRadius: '25px 0px 0px 0px',
 } as React.CSSProperties;
 
 const usersChartStyle = {
-    height: (topLeftHeight - 2) + 'vh',
-    width: (topLeftWidth - 25) + 'vw',
+    height: '90%',
+    width: '45%',
     float: 'left',
     marginBottom: '1vh',
     marginLeft: '1vw',
 } as React.CSSProperties;
 
 const returnsChartStyle = {
-    height: (topLeftHeight-2) + 'vh',
-    width: (topLeftWidth - 75) + 'vw',
+    height: '100%',
+    width: '45%',
     float: 'left',
     marginLeft: '10px',
 } as React.CSSProperties;
 
 const topRight = {
     position: 'absolute',
-    left: (topLeftWidth+0.7) + 'vw',
-    width: topRightWidth + 'vw',
-    height: topRightHeight + 'vh',
-    overflow: 'auto',
+    left: (topLeftWidth+0.7) + '%',
+    width: topRightWidth + '%',
+    height: topRightHeight + '%',
     border: '0.2vmin solid black',
     borderLeft: '0.1vmin transparent',
-    borderBottom: '0.1vmin solid black',
     flexGrow: '1',
     borderRadius: '0px 25px 0px 0px',
 } as React.CSSProperties;
@@ -111,28 +106,32 @@ const bottomLeft = {
     width: topLeftWidth + 'vw',
     height: (100-topLeftHeight - 10) + 'vh',
     overflow: 'auto',
-    float: 'left',
-    clear: 'left',
     border: '0.2vmin solid black',
+    borderTop: 'transparent',
     borderRadius: '0px 0px 0px 25px',
 } as React.CSSProperties;
 
 const reviewsChartStyle = {
-    width: '49%',
+    width: '47%',
     height: '100%',
-    borderRight: '0.1vmin solid black',
+    borderRight: '0.2vmin solid black',
     float: 'left',
 } as React.CSSProperties;
 
 const problemsChartStyle = {
-    flexGrow:'1',
+    width: '50%',
     height: '100%',
-    borderLeft: '0.1vmin solid black',
     float: 'left',
 } as React.CSSProperties;
 
 const costChartStyle = {
-    height: '50vh',
-    width: '60%',
-    float: 'left',
+    position: 'absolute',
+    top: (topRightHeight+1) + 'vh',
+    left: (topLeftWidth+0.65) + 'vw',
+    width: (topRightWidth+0.05) + 'vw',
+    height: (100-topRightHeight-10) + 'vh',
+    overflow: 'auto',
+    borderRight: '0.2vmin solid black',
+    borderBottom: '0.2vmin solid black',
+    borderRadius: '0px 0px 25px 0px',
 } as React.CSSProperties;
