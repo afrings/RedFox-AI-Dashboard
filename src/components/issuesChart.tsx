@@ -50,7 +50,7 @@ export const data = {
     {
       label: 'Steps Users Had Issues With',
       data: format(),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      backgroundColor: 'rgba(51, 187, 238, 0.7)',
     },
   ],
 };

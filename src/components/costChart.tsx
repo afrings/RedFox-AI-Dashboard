@@ -24,11 +24,12 @@ export const options = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      display: false,
       position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: 'Cost per Month',
     },
   },
 };
@@ -45,7 +46,7 @@ export const data = {
     {
       label: 'User Reviews',
       data: format(),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      backgroundColor: 'rgba(0, 153, 136, 0.7)',
     },
   ],
 };

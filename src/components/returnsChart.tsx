@@ -28,11 +28,12 @@ export const options = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      display: false,
       position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Return Rates Over 30 Days',
     },
   },
 };
@@ -40,7 +41,7 @@ export const options = {
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 const format = () => {
-    return labels.map(() => Math.random() * 100)
+    return labels.map(() => Math.random() * 10)
 }
 
 export const data = {
