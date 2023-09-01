@@ -27,7 +27,7 @@ export const options = {
       position: 'top' as const,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Chart.js Bar Chart',
     },
   },
@@ -43,7 +43,7 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'User Reviews',
+      label: 'Successful User Interactions',
       data: format(),
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },

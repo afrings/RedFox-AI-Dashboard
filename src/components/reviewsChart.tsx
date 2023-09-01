@@ -36,7 +36,7 @@ export const options = {
 const labels = ['User 1', 'User 2', 'User 3',];
 
 const format = () => {
-  return labels.map(() => Math.random() * 100)
+  return labels.map(() => Math.random() * 50 + 50)
 }
 
 export const data = {

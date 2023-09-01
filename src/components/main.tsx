@@ -20,14 +20,12 @@ export const Main: React.FC = () => {
                     <ReturnsChart/>
                 </div>
             </div>
-            <div>
-                <div style={topRight}>
-                    <div style={timeChartStyle}>
-                        <TimeChart/>
-                    </div>
-                    <div style={interactionsChartStyle}>
-                        <InteractionsChart/>
-                    </div>
+            <div style={topRight}>
+                <div style={timeChartStyle}>
+                    <TimeChart/>
+                </div>
+                <div style={interactionsChartStyle}>
+                    <InteractionsChart/>
                 </div>
             </div>
             <div style={bottomLeft}>
@@ -38,94 +36,103 @@ export const Main: React.FC = () => {
                     <IssuesChart/>
                 </div>
             </div>
-            <div>
+            {/* <div>
                 <div style={costChartStyle}>
                     <CostChart/>
                 </div>
-            </div>
+            </div> */}
         </div>
         
     )
 };
 
-let height = window.innerHeight;
-let width = window.innerWidth;
-let heightConst = 2.2;
-const usersChartStyle = {
-    height: height/heightConst,
-    float: 'left',
-    marginBottom: '15px',
-    marginLeft: '10px',
-} as React.CSSProperties;
+let topLeftWidth = 40;
+let topLeftHeight = 30;
+let topRightWidth = 100-topLeftWidth-5;
+let topRightHeight = 40;
 
-const returnsChartStyle = {
-    height: height/heightConst,
-    minWidth: '65%',
-    float: 'left',
-    marginLeft: '10px',
-} as React.CSSProperties;
 
 const topLeft = {
-    width: '50%',
+    position: 'absolute',
+    width: topLeftWidth + 'vw',
+    height: topLeftHeight + 'vh',
     overflow: 'auto',
-    border: '2px solid black',
-    borderBottom: '1px solid black',
-    float: 'left',
+    border: '0.2vmin solid black',
+    borderBottom: '0.1vmin solid black',
     borderRadius: '25px 0px 0px 0px',
 } as React.CSSProperties;
 
-const timeChartStyle = {
+const usersChartStyle = {
+    height: (topLeftHeight - 2) + 'vh',
+    width: (topLeftWidth - 25) + 'vw',
     float: 'left',
-    height: height/heightConst,
-    marginLeft: '10px',
-    marginBottom: '15px',
+    marginBottom: '1vh',
+    marginLeft: '1vw',
 } as React.CSSProperties;
 
-const interactionsChartStyle = {
+const returnsChartStyle = {
+    height: (topLeftHeight-2) + 'vh',
+    width: (topLeftWidth - 75) + 'vw',
     float: 'left',
-    height: height/heightConst,
     marginLeft: '10px',
 } as React.CSSProperties;
 
 const topRight = {
-    border: '2px solid black',
-    borderLeft: '1px solid black',
-    borderBottom: '1px solid black',
-    float: 'left',
+    position: 'absolute',
+    left: (topLeftWidth+0.7) + 'vw',
+    width: topRightWidth + 'vw',
+    height: topRightHeight + 'vh',
+    overflow: 'auto',
+    border: '0.2vmin solid black',
+    borderLeft: '0.1vmin transparent',
+    borderBottom: '0.1vmin solid black',
+    flexGrow: '1',
     borderRadius: '0px 25px 0px 0px',
 } as React.CSSProperties;
 
-const reviewsChartStyle = {
-    maxWidth: '100%',
-    minWidth: '49%',
-    height: height/heightConst,
-    border: '2px solid black',
-    borderTop: '1px solid black',
-    borderRight: '1px solid black',
+const timeChartStyle = {
+    width: '50%',
+    height: '95%',
     float: 'left',
-    borderRadius: '0px 0px 0px 25px',
+    marginLeft: '1vw',
+    marginBottom: '1vh',
 } as React.CSSProperties;
 
-const problemsChartStyle = {
-    maxWidth: '100%',
-    minWidth: '49%',
-    height: height/heightConst,
-    border: '2px solid black',
-    borderTop: '1px solid black',
-    borderLeft: '1px solid black',
+const interactionsChartStyle = {
+    width: '45%',
+    height: '100%',
     float: 'left',
+    marginLeft: '1vw',
 } as React.CSSProperties;
 
 const bottomLeft = {
-    maxWidth: '50.9%',
-    minWidth: '30%',
+    position: 'absolute',
+    top: (topLeftHeight+1) + 'vh',
+    width: topLeftWidth + 'vw',
+    height: (100-topLeftHeight - 10) + 'vh',
     overflow: 'auto',
     float: 'left',
     clear: 'left',
+    border: '0.2vmin solid black',
+    borderRadius: '0px 0px 0px 25px',
+} as React.CSSProperties;
+
+const reviewsChartStyle = {
+    width: '49%',
+    height: '100%',
+    borderRight: '0.1vmin solid black',
+    float: 'left',
+} as React.CSSProperties;
+
+const problemsChartStyle = {
+    flexGrow:'1',
+    height: '100%',
+    borderLeft: '0.1vmin solid black',
+    float: 'left',
 } as React.CSSProperties;
 
 const costChartStyle = {
-    height: height/heightConst,
+    height: '50vh',
     width: '60%',
     float: 'left',
 } as React.CSSProperties;

@@ -41,7 +41,7 @@ export const options = {
 const labels = ['1', '2', '3', '4', '5', '6'];
 
 const format = () => {
-  return labels.map(() => Math.random() * 100)
+  return labels.map(() => Math.random() * 10)
 }
 
 export const data = {
