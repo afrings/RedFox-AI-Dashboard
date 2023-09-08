@@ -6,12 +6,14 @@ import { IssuesChart } from './issuesChart';
 import { TimeChart } from './timeChart';
 import { InteractionsChart } from './interactionsChart';
 import { CostChart } from './costChart';
+import DropDown from './selectPageDropDown';
 
 export const Main: React.FC = () => {
     var fr = new FileReader();
     
     return (
         <div>
+            <DropDown/>
             <div style={topLeft}>
                 <div style={usersChartStyle}>
                     <UserChart/>
