@@ -13,10 +13,10 @@ const DropDown = () => {
             {open ? (
                 <ul style={menu}>
                     <li style={menuLi}>
-                        <button >Menu 1</button>
+                        <button>Menu 1</button>
                     </li>
                     <li style={menuLi}>
-                        <button >Menu 2</button>
+                        <button>Menu 2</button>
                     </li>
                 </ul>
             ) : null}
@@ -33,7 +33,7 @@ const menu = {
 } as React.CSSProperties;
 
 const menuLi = {
-    margin: '0',
+    margin: '1px',
     backgroundColor: 'white',
 } as React.CSSProperties;
 
