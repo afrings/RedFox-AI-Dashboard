@@ -1,11 +1,11 @@
 import React from 'react';
-import { UserChart } from './usersChart';
-import { ReturnsChart } from './returnsChart';
-import { ReviewsChart } from './reviewsChart';
-import { IssuesChart } from './issuesChart';
-import { TimeChart } from './timeChart';
-import { InteractionsChart } from './interactionsChart';
-import { CostChart } from './costChart';
+import { UserChart } from './charts/usersChart';
+import { ReturnsChart } from './charts/returnsChart';
+import { ReviewsChart } from './charts/reviewsChart';
+import { IssuesChart } from './charts/issuesChart';
+import { TimeChart } from './charts/timeChart';
+import { InteractionsChart } from './charts/interactionsChart';
+import { CostChart } from './charts/costChart';
 import DropDown from './selectPageDropDown';
 
 export const Main: React.FC = () => {
@@ -13,36 +13,31 @@ export const Main: React.FC = () => {
     
     return (
         <div>
-            {/* <DropDown/> */}
-            <div style={topLeft}>
-                <div style={usersChartStyle}>
-                    <UserChart/>
-                </div>
-                <div style={returnsChartStyle}>
-                    <ReturnsChart/>
-                </div>
+            <DropDown/>
+            <div style={chartsStyle}>
+            <div style={usersChartStyle}>
+                <UserChart/>
             </div>
-            <div style={topRight}>
-                <div style={timeChartStyle}>
-                    <TimeChart/>
-                </div>
-                <div style={interactionsChartStyle}>
-                    <InteractionsChart/>
-                </div>
+            <div style={returnsChartStyle}>
+                <ReturnsChart/>
             </div>
-            <div style={bottomLeft}>
-                <div style={reviewsChartStyle}>
-                    <ReviewsChart/>
-                </div>
-                <div style={problemsChartStyle}>
-                    <IssuesChart/>
-                </div>
+            <div style={timeChartStyle}>
+                <TimeChart/>
+            </div>
+            <div style={interactionsChartStyle}>
+                <InteractionsChart/>
+            </div>
+            <div style={reviewsChartStyle}>
+                <ReviewsChart/>
+            </div>
+            <div style={problemsChartStyle}>
+                <IssuesChart/>
             </div>
             <div style={costChartStyle}>
                 <CostChart/>
             </div>
         </div>
-        
+    </div>
     )
 };
 
@@ -51,89 +46,46 @@ let topLeftHeight = 30;
 let topRightWidth = 100-topLeftWidth-5;
 let topRightHeight = 40;
 
-
-const topLeft = {
+const chartsStyle = {
     position: 'absolute',
-    width: topLeftWidth + '%',
-    height: topLeftHeight + '%',
-    overflow: 'auto',
-    border: '0.2vmin solid black',
-    borderRadius: '25px 0px 0px 0px',
+    top: '5vh',
+    display: 'grid',
+    gridTemplateColumns: '25vw 25vw 25vw 20vw',
+    gap: '10px',
+    gridAutoRows: '45vh 45vh',
 } as React.CSSProperties;
 
 const usersChartStyle = {
-    height: '90%',
-    width: '45%',
-    float: 'left',
-    marginBottom: '1vh',
-    marginLeft: '1vw',
+    gridColumn: '1',
+    gridRow: '1',
 } as React.CSSProperties;
 
 const returnsChartStyle = {
-    height: '100%',
-    width: '45%',
-    float: 'left',
-    marginLeft: '10px',
-} as React.CSSProperties;
-
-const topRight = {
-    position: 'absolute',
-    left: (topLeftWidth+0.7) + '%',
-    width: topRightWidth + '%',
-    height: topRightHeight + '%',
-    border: '0.2vmin solid black',
-    borderLeft: '0.1vmin transparent',
-    flexGrow: '1',
-    borderRadius: '0px 25px 0px 0px',
+    gridColumn: '2',
+    gridRow: '1',
 } as React.CSSProperties;
 
 const timeChartStyle = {
-    width: '50%',
-    height: '95%',
-    float: 'left',
-    marginLeft: '1vw',
-    marginBottom: '1vh',
+    gridColumn: '3',
+    gridRow: '1',
 } as React.CSSProperties;
 
 const interactionsChartStyle = {
-    width: '45%',
-    height: '100%',
-    float: 'left',
-    marginLeft: '1vw',
-} as React.CSSProperties;
-
-const bottomLeft = {
-    position: 'absolute',
-    top: (topLeftHeight+1) + 'vh',
-    width: topLeftWidth + 'vw',
-    height: (100-topLeftHeight - 10) + 'vh',
-    overflow: 'auto',
-    border: '0.2vmin solid black',
-    borderTop: 'transparent',
-    borderRadius: '0px 0px 0px 25px',
+    gridColumn: '4',
+    gridRow: '1',
 } as React.CSSProperties;
 
 const reviewsChartStyle = {
-    width: '47%',
-    height: '100%',
-    borderRight: '0.2vmin solid black',
-    float: 'left',
+    gridColumn: '1',
+    gridRow: '2',
 } as React.CSSProperties;
 
 const problemsChartStyle = {
-    width: '50%',
-    height: '100%',
-    float: 'left',
+    gridColumn: '2',
+    gridrow: '2',
 } as React.CSSProperties;
 
 const costChartStyle = {
-    position: 'absolute',
-    top: (topRightHeight+1) + 'vh',
-    left: (topLeftWidth+0.65) + 'vw',
-    width: (topRightWidth+0.05) + 'vw',
-    height: (100-topRightHeight-10) + 'vh',
-    overflow: 'auto',
-    borderRight: '0.2vmin solid black',
-    borderBottom: '0.2vmin solid black',
-    borderRadius: '0px 0px 25px 0px',
+    gridColumn: '3/5',
+    gridRow: '2',
 } as React.CSSProperties;
