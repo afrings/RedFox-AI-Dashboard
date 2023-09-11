@@ -13,7 +13,7 @@ export const Main: React.FC = () => {
     
     return (
         <div>
-            <DropDown/>
+            {/* <DropDown/> */}
             <div style={topLeft}>
                 <div style={usersChartStyle}>
                     <UserChart/>

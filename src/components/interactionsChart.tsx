@@ -45,7 +45,7 @@ export const data = {
     {
       label: 'Successful User Interactions',
       data: format(),
-      backgroundColor: 'rgba(255, 99, 132, 0.7)',
+      backgroundColor: 'rgba(204, 102, 119, 0.75)',
     },
   ],
 };
