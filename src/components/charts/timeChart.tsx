@@ -8,6 +8,16 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const options = {
   maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: true,
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Time Spend Per Step',
+    },
+  },
 }
 
 export const data = {

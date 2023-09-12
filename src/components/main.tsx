@@ -12,9 +12,9 @@ export const Main: React.FC = () => {
     var fr = new FileReader();
     
     return (
-        <div>
-            <DropDown/>
-            <div style={chartsStyle}>
+    <div>
+        <DropDown/>
+        <div style={chartsStyle}>
             <div style={usersChartStyle}>
                 <UserChart/>
             </div>
@@ -30,7 +30,7 @@ export const Main: React.FC = () => {
             <div style={reviewsChartStyle}>
                 <ReviewsChart/>
             </div>
-            <div style={problemsChartStyle}>
+            <div style={issuesChartStyle}>
                 <IssuesChart/>
             </div>
             <div style={costChartStyle}>
@@ -41,51 +41,58 @@ export const Main: React.FC = () => {
     )
 };
 
-let topLeftWidth = 40;
-let topLeftHeight = 30;
-let topRightWidth = 100-topLeftWidth-5;
-let topRightHeight = 40;
-
 const chartsStyle = {
     position: 'absolute',
     top: '5vh',
     display: 'grid',
-    gridTemplateColumns: '25vw 25vw 25vw 20vw',
-    gap: '10px',
-    gridAutoRows: '45vh 45vh',
+    gridTemplateColumns: '25vw 25vw 25vw 22vw',
+    gap: '5px',
+    gridAutoRows: '5vh',
+    backgroundColor: 'black',
+    border: '5px solid black',
 } as React.CSSProperties;
 
 const usersChartStyle = {
     gridColumn: '1',
-    gridRow: '1',
+    gridRow: '1/9',
+    backgroundColor: 'white',
+    paddingBottom: '10px',
 } as React.CSSProperties;
 
 const returnsChartStyle = {
     gridColumn: '2',
-    gridRow: '1',
+    gridRow: '1/9',
+    backgroundColor: 'white',
 } as React.CSSProperties;
 
 const timeChartStyle = {
     gridColumn: '3',
-    gridRow: '1',
+    gridRow: '1/7',
+    backgroundColor: 'white',
+    paddingBottom: '10px',
 } as React.CSSProperties;
 
 const interactionsChartStyle = {
     gridColumn: '4',
-    gridRow: '1',
+    gridRow: '1/7',
+    backgroundColor: 'white',
 } as React.CSSProperties;
 
 const reviewsChartStyle = {
     gridColumn: '1',
-    gridRow: '2',
+    gridRow: '9/16',
+    backgroundColor: 'white',
 } as React.CSSProperties;
 
-const problemsChartStyle = {
+const issuesChartStyle = {
     gridColumn: '2',
-    gridrow: '2',
+    gridRow: '9/16',
+    backgroundColor: 'white',
+    objectFit: 'fill',
 } as React.CSSProperties;
 
 const costChartStyle = {
     gridColumn: '3/5',
-    gridRow: '2',
+    gridRow: '7/16',
+    backgroundColor: 'white',
 } as React.CSSProperties;

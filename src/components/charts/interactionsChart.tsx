@@ -24,11 +24,12 @@ export const options = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      display: false,
       position: 'top' as const,
     },
     title: {
-      display: false,
-      text: 'Chart.js Bar Chart',
+      display: true,
+      text: 'Successful User Interactions',
     },
   },
 };

@@ -21,15 +21,12 @@ ChartJS.register(
 
 export const options = {
     indexAxis: 'y' as const,
-    elements: {
-      bar: {
-        borderWidth: 2,
-      },
-    },
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
+        display: true,
+        position: 'top' as const,
       },
       title: {
         display: true,
