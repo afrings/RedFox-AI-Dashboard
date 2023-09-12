@@ -15,7 +15,7 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Time Spend Per Step',
+      text: 'Time Spent Per Step',
     },
   },
 }
