@@ -24,7 +24,7 @@ export const data = {
   labels: ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6'],
   datasets: [
     {
-      label: '# of Votes',
+      label: 'Time',
       data: [12, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(51, 34, 136, 0.75)',
