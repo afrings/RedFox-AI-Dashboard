@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app
-    .use(express.static(path.join(__dirname, '/../public')))
+    .use(express.static(path.join(__dirname, '/../build')))
     .listen(PORT, () => console.log('Listening on ${port}'));
 
 app.get('/', (req, res) => {
