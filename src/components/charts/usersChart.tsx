@@ -20,7 +20,7 @@ export const data = {
   labels: ['Q1', 'Q2', 'Q3', 'Q4'],
   datasets: [
     {
-      label: '# of Votes',
+      label: '# of Users',
       data: [12, 19, 3, 5,],
       backgroundColor: [
         'rgba(51, 34, 136, 0.75)',
