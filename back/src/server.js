@@ -1,14 +1,21 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const corsOptions = {
+    origin: 'http://localhost:4000',
+    credentials: true,
+    optionSuccessStatus:200,
+}
+app.use(cors(corsOptions));
 
 const AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-2'})
 const client = new AWS.DynamoDB.DocumentClient();
-const tableName = 'MailSources';
+const tableName = 'DashboardData';
 
 const port = 3000;
 
-app.get("/rows/all", (req, res) => {
+app.get("/", (req, res) => {
     var params = {
         TableName: tableName
     };
