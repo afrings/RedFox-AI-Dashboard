@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { DynamoDBClient, GetItemCommand, PutItemCommand, CreateTableCommand, DeleteTableCommand } from '@aws-sdk/client-dynamodb';
@@ -21,6 +21,8 @@ const ddbClient = new DynamoDBClient
 });
 
 const port = 3000;
+
+app.get
 
 app.get("/createTable", async(req, res) => {
     try {

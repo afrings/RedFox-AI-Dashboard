@@ -13,6 +13,7 @@ const config = {
   output: {
     path: resolve(__dirname, "build"),
     filename: "build.js",
+    publicPath: '/',
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", "json"],
@@ -50,6 +51,7 @@ if (isProd) {
     hot: true,
     compress: true,
     allowedHosts: 'all',
+    historyApiFallback: true,
     client: {
       webSocketURL: "auto://0.0.0.0:0/ws"
     }

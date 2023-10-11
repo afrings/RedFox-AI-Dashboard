@@ -1,5 +1,6 @@
 import React from 'react';
 import { Main } from './components/pages/main';
+import { Login } from './components/pages/login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export const App: React.FC = () => {
@@ -7,6 +8,7 @@ export const App: React.FC = () => {
         <Router>
             <Routes>
                 <Route path='/' element={<Main />} />
+                <Route path='/login' element={<Login />} />
             </Routes>
         </Router>
     )
