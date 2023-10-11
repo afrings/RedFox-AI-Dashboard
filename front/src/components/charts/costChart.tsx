@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -34,36 +34,31 @@ export const options = {
   },
 };
 
-const xhr = new XMLHttpRequest();
-xhr.open("GET", "http://localhost:3000/");
-xhr.send();
-xhr.responseType = 'json';
-xhr.onload = () => {
-  if (xhr.readyState == 4 && xhr.status == 200) {
-    const data = xhr.response;
-    console.log(data);
-  } else {
-    console.log(`Error: ${xhr.status}`);
-  }
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const format = () => {
-  return labels.map(() => Math.random() * 100)
-}
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'User Reviews',
-      data: format(),
-      backgroundColor: 'rgba(0, 153, 136, 0.7)',
-    },
-  ],
-};
-
 export const CostChart: React.FC = () => {
-  return <Bar options={options} data={data} />;
+
+  const [data, setData] = useState({});
+
+  var chart = {
+    labels: data[0],
+    datasets: [
+      {
+        label: 'User Reviews',
+        data: data[1],
+        backgroundColor: 'rgba(0, 153, 136, 0.7)',
+      },
+    ],
+  };
+
+  const getCostData = useCallback(async () => {
+    const response = await fetch("http://localhost:3000/getItem/CostData");
+    const costData = await response.json();
+    setData([costData.Data[0], costData.Data[1]]);
+  }, []);
+
+  useEffect(() => {
+    getCostData()
+      .catch(console.error);
+  }, []);
+
+  return <Bar options={options} data={chart} />;
 }

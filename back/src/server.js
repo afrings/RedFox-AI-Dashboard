@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-// import { DBController } from '../utils/utilities.js';
+import { DynamoDBClient, GetItemCommand, PutItemCommand, CreateTableCommand, DeleteTableCommand } from '@aws-sdk/client-dynamodb';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
 
 dotenv.config({ path: '.env' });
 const app = express();
@@ -12,7 +13,6 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-import { DynamoDBClient, GetItemCommand, PutItemCommand, CreateTableCommand, DeleteTableCommand } from '@aws-sdk/client-dynamodb';
 const ddbClient = new DynamoDBClient
 ({
     credentials: { accessKeyId: process.env.DB_KEY ?? "", secretAccessKey:process.env.DB_SECRET_KEY ?? ""},
@@ -21,15 +21,6 @@ const ddbClient = new DynamoDBClient
 });
 
 const port = 3000;
-
-// app.get("/", async(req, res) => {
-//     try {
-//         const sessionattr = await DBController.get('testData');
-//         return res.status(200).send(sessionattr)
-//     } catch(err) {
-//         if (err) return res.status(400).send('error');
-//     }
-// });
 
 app.get("/createTable", async(req, res) => {
     try {
@@ -87,14 +78,13 @@ app.get("/getItem/:itemName", async(req, res) => {
         });
 
         const response = await ddbClient.send(command);
-        if(! response.Item)
-        res.status(200).send(response);
+        if(! response.Item) return;
+        console.log(response)
+        res.status(200).send(unmarshall(response.Item));
     } catch (err) {
         console.log(err);
     }
 });
-
-app.get()
 
 app.get("/test", (req, res) => {
     return res.status(200).send('hello')
