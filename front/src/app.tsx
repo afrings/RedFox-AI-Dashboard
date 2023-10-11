@@ -1,5 +1,5 @@
 import React from 'react';
-import { Main } from './components/main';
+import { Main } from './components/pages/main';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export const App: React.FC = () => {

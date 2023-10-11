@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import DropDown from './selectPageDropDown';
-import { DisplayAll } from './pageLayouts/displayAll';
-import { DisplayUsersReturnRates } from './pageLayouts/displayUsersReturnRates';
-import { DisplayTimeInteractions } from './pageLayouts/displayTimeInteractions';
-import { DisplayReviewsUserIssues } from './pageLayouts/displayReviewsUserIssues';
-import { DisplayCost } from './pageLayouts/displayCost';
+import DropDown from '../selectPageDropDown';
+import { DisplayAll } from '../pageLayouts/displayAll';
+import { DisplayUsersReturnRates } from '../pageLayouts/displayUsersReturnRates';
+import { DisplayTimeInteractions } from '../pageLayouts/displayTimeInteractions';
+import { DisplayReviewsUserIssues } from '../pageLayouts/displayReviewsUserIssues';
+import { DisplayCost } from '../pageLayouts/displayCost';
 
 export const Main: React.FC = () => {
     
