@@ -3,22 +3,37 @@ import { useNavigate } from 'react-router-dom';
 
 export const Login: React.FC = () => {
 
+    const [state, setState] = useState({username: '', password: ''});
+
+    const handleChangeUsername = (event) => {
+        setState({username: event.target.value, password: state.password})
+    }
+
+    const handleChangePassword = (event) => {
+        setState({username: state.username, password: event.target.value})
+    }
+
     const navigate = useNavigate();
     const handleClick = () => {
         navigate('/main');
     }
 
     const login = async(username, password) => {
-        const response = await fetch(`http://localhost:3000/login?username=${username}&password=${password}`);
-        const res = await response.json();
-        console.log(res);
+        try{
+            const response = await fetch(`http://localhost:3001/login?username=${username}&password=${password}`);
+            const res = await response.json();
+            console.log(res);
+        } catch(error) {
+            console.log(error);
+        }
+        
     }
     
     return (
         <div style={pageFormat}>
-            <input placeholder={"Username"} style={inputUsernameStyle}></input>
-            <input placeholder={"Password"} type='password' style={inputPasswordStyle}></input>
-            <button style={loginButtonStyle} onClick={handleClick/**(e:any) => login('', '')**/}> Login </button>
+            <input placeholder={"Username"} onChange={handleChangeUsername} style={inputUsernameStyle}></input>
+            <input placeholder={"Password"} onChange={handleChangePassword} type='password' style={inputPasswordStyle}></input>
+            <button style={loginButtonStyle} onClick={(e:any) => login(state.username, state.password)}> Login </button>
         </div>
     )
 };

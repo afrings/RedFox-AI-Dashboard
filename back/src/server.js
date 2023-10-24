@@ -5,6 +5,9 @@ import { DynamoDBClient, GetItemCommand, PutItemCommand, CreateTableCommand, Del
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import https from 'https';
+import http from 'http';
+import fs from 'fs';
 
 dotenv.config({ path: '.env' });
 
@@ -31,7 +34,7 @@ const ddbClient = new DynamoDBClient
     apiVersion: 'latest'
 });
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 app.get("/createTable", async(req, res) => {
     try {
@@ -98,10 +101,41 @@ app.get("/getItem/:itemName", async(req, res) => {
 });
 
 
-app.get('/login', (req, res) => {
-    
+app.get('/login', async(req, res) => {
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                Items: { S: req.params.itemName },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        console.log(response)
+        res.status(200).send(unmarshall(response.Item));
+    } catch (err) {
+        console.log(err);
+    }
 });
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
+const PORT = port || 5000;
+
+https
+    .createServer(
+        {
+            key: fs.readFileSync("key.pem"),
+            cert: fs.readFileSync("cert.pem"),
+            requestCert: false,
+            rejectUnauthorized: false,
+        },
+        app)
+    .listen(port, () => {
+        console.log(`Listening on port ${port}`);
+    });
+
+http
+    .createServer(app)
+    .listen(port - 0 + 1, () => {
+        console.log(`Listening on port ${port - 0 + 1}`);
+    });
