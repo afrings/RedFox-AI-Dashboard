@@ -3,8 +3,11 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { DynamoDBClient, GetItemCommand, PutItemCommand, CreateTableCommand, DeleteTableCommand } from '@aws-sdk/client-dynamodb';
 import { unmarshall } from '@aws-sdk/util-dynamodb';
+import session from 'express-session';
+import bodyParser from 'body-parser';
 
 dotenv.config({ path: '.env' });
+
 const app = express();
 const corsOptions = {
     origin: 'http://localhost:4000',
@@ -12,6 +15,14 @@ const corsOptions = {
     optionSuccessStatus:200,
 }
 app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: "A Secret Key",
+    resave: true,
+    saveUninitialized: true,
+}));
 
 const ddbClient = new DynamoDBClient
 ({
@@ -21,8 +32,6 @@ const ddbClient = new DynamoDBClient
 });
 
 const port = 3000;
-
-app.get
 
 app.get("/createTable", async(req, res) => {
     try {
@@ -75,7 +84,7 @@ app.get("/getItem/:itemName", async(req, res) => {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
             Key: {
-                DrinkName: { S: req.params.itemName },
+                Items: { S: req.params.itemName },
             },
         });
 
@@ -88,8 +97,9 @@ app.get("/getItem/:itemName", async(req, res) => {
     }
 });
 
-app.get("/test", (req, res) => {
-    return res.status(200).send('hello')
+
+app.get('/login', (req, res) => {
+    
 });
 
 app.listen(port, () => {

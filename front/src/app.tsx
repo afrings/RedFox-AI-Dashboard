@@ -7,8 +7,8 @@ export const App: React.FC = () => {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<Main />} />
-                <Route path='/login' element={<Login />} />
+                <Route path='/' element={<Login />} />
+                <Route path='/main' element={<Main />} />
             </Routes>
         </Router>
     )

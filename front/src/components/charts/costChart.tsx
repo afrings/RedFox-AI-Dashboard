@@ -52,6 +52,7 @@ export const CostChart: React.FC = () => {
   const getCostData = useCallback(async () => {
     const response = await fetch("http://localhost:3000/getItem/CostData");
     const costData = await response.json();
+    console.log(costData);
     setData([costData.Data[0], costData.Data[1]]);
   }, []);
 
