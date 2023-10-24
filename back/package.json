@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
   "type": "module",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.425.0",
