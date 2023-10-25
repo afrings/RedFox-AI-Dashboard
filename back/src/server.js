@@ -104,9 +104,9 @@ app.get("/getItem/:itemName", async(req, res) => {
 app.get('/login', async(req, res) => {
     try {
         const command = new GetItemCommand({
-            TableName: process.env.DB_NAME,
+            TableName: process.env.DB_LOGIN,
             Key: {
-                Items: { S: req.params.itemName },
+                Items: { S: req.query.itemName },
             },
         });
 
