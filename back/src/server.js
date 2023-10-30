@@ -121,19 +121,6 @@ app.get('/login', async(req, res) => {
 
 const PORT = port || 5000;
 
-https
-    .createServer(
-        {
-            key: fs.readFileSync("key.pem"),
-            cert: fs.readFileSync("cert.pem"),
-            requestCert: false,
-            rejectUnauthorized: false,
-        },
-        app)
-    .listen(port, () => {
-        console.log(`Listening on port ${port}`);
-    });
-
 http
     .createServer(app)
     .listen(port - 0 + 1, () => {
