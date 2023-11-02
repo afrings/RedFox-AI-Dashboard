@@ -25,7 +25,7 @@ export const options = {
   plugins: {
     legend: {
       display: false,
-      position: 'top' as const,
+      position: 'top',
     },
     title: {
       display: true,
@@ -51,6 +51,6 @@ export const data = {
   ],
 };
 
-export const InteractionsChart: React.FC = () => {
+export default function InteractionsChart() {
   return <Bar options={options} data={data} />;
 }

@@ -24,7 +24,11 @@ const config = {
         test: /\.(ts|tsx)$/,
         use: "ts-loader",
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.(sass|less|css|scss)$/,
+        use: ['style-loader', 'css-loader', 'less-loader', 'sass-loader']
+      },
     ],
   },
   plugins: [

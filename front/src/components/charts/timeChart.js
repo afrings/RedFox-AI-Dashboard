@@ -11,7 +11,7 @@ const options = {
   plugins: {
     legend: {
       display: true,
-      position: 'top' as const,
+      position: 'top',
     },
     title: {
       display: true,
@@ -47,6 +47,6 @@ export const data = {
   ],
 };
 
-export const TimeChart: React.FC = () => {
+export default function TimeChart() {
     return <Pie options={options} data={data}/>
 };

@@ -66,27 +66,12 @@ const menu = {
     border: '2px solid black',
     backgroundColor: 'white',
     zIndex:'200',
-} as React.CSSProperties;
+};
 
 const menuLi = {
     margin: '3px',
     backgroundColor: 'white',
     zIndex:'200',
-} as React.CSSProperties;
-
-const menuButton = {
-    width: '100%',
-    height: '100%',
-    textAlign: 'left',
-    backgroundColor: 'white',
-    background: 'none',
-    color: 'inherit',
-    border: 'none',
-    padding: '5px',
-    margin: '0',
-    font: 'inherit',
-    cursor: 'pointer',
-    zIndex:'200',
-} as React.CSSProperties;
+};
 
 export default DropDown;

@@ -25,7 +25,7 @@ export const options = {
   plugins: {
     legend: {
       display: false,
-      position: 'top' as const,
+      position: 'top',
     },
     title: {
       display: true,
@@ -34,7 +34,7 @@ export const options = {
   },
 };
 
-export const CostChart: React.FC = () => {
+export default function CostChart() {
 
   const [data, setData] = useState({});
 

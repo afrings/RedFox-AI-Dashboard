@@ -29,7 +29,7 @@ export const options = {
   plugins: {
     legend: {
       display: false,
-      position: 'top' as const,
+      position: 'top',
     },
     title: {
       display: true,
@@ -57,6 +57,6 @@ export const data = {
   ],
 };
 
-export const ReturnsChart: React.FC = () => {
+export default function ReturnsChart() {
   return <Line options={options} data={data} />;
 }

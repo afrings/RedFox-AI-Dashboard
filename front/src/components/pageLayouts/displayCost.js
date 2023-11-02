@@ -1,7 +1,7 @@
 import React from 'react';
-import { CostChart } from '../charts/costChart';
+import CostChart from '../charts/costChart';
 
-export const DisplayCost: React.FC = () => {
+export default function DisplayCost() {
     
     return (
     <div>    
@@ -23,10 +23,10 @@ const chartsStyle = {
     gridAutoRows: '5vh',
     backgroundColor: 'black',
     border: '5px solid black',
-} as React.CSSProperties;
+};
 
 const costChartStyle = {
     gridColumn: '1/5',
     gridRow: '1/16',
     backgroundColor: 'white',
-} as React.CSSProperties;
+};

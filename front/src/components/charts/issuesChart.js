@@ -20,13 +20,13 @@ ChartJS.register(
 );
 
 export const options = {
-    indexAxis: 'y' as const,
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
-        position: 'top' as const,
+        position: 'top',
       },
       title: {
         display: true,
@@ -52,6 +52,6 @@ export const data = {
   ],
 };
 
-export const IssuesChart: React.FC = () => {
+export default function IssuesChart() {
   return <Bar options={options} data={data} />;
 }

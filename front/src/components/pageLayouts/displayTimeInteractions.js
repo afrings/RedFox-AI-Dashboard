@@ -1,8 +1,8 @@
 import React from 'react';
-import { TimeChart } from '../charts/timeChart';
-import { InteractionsChart } from '../charts/interactionsChart';
+import TimeChart from '../charts/timeChart';
+import InteractionsChart from '../charts/interactionsChart';
 
-export const DisplayTimeInteractions: React.FC = () => {
+export default function DisplayTimeInteractions() {
     
     return (
     <div>    
@@ -27,17 +27,17 @@ const chartsStyle = {
     gridAutoRows: '5vh',
     backgroundColor: 'black',
     border: '5px solid black',
-} as React.CSSProperties;
+};
 
 const timeChartStyle = {
     gridColumn: '1/4',
     gridRow: '1/16',
     backgroundColor: 'white',
     paddingBottom: '10px',
-} as React.CSSProperties;
+};
 
 const interactionsChartStyle = {
     gridColumn: '4',
     gridRow: '1/16',
     backgroundColor: 'white',
-} as React.CSSProperties;
+};

@@ -39,6 +39,6 @@ export const data = {
   ],
 };
 
-export const UserChart: React.FC = () => {
+export default function UserChart() {
     return <Pie options={options} data={data}/>
 };

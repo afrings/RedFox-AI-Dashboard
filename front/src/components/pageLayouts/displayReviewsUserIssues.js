@@ -1,8 +1,8 @@
 import React from 'react';
-import { ReviewsChart } from '../charts/reviewsChart';
-import { IssuesChart } from '../charts/issuesChart';
+import ReviewsChart from '../charts/reviewsChart';
+import IssuesChart from '../charts/issuesChart';
 
-export const DisplayReviewsUserIssues: React.FC = () => {
+export default function DisplayReviewsUserIssues() {
     
     return (
     <div>    
@@ -27,17 +27,17 @@ const chartsStyle = {
     gridAutoRows: '5vh',
     backgroundColor: 'black',
     border: '5px solid black',
-} as React.CSSProperties;
+};
 
 const reviewsChartStyle = {
     gridColumn: '1/3',
     gridRow: '1/16',
     backgroundColor: 'white',
-} as React.CSSProperties;
+};
 
 const issuesChartStyle = {
     gridColumn: '3/5',
     gridRow: '1/16',
     backgroundColor: 'white',
     objectFit: 'fill',
-} as React.CSSProperties;
+};
