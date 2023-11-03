@@ -119,10 +119,10 @@ app.get('/login', async(req, res) => {
     }
 });
 
-const PORT = port || 5000;
+const PORT = port || 5005;
 
 http
     .createServer(app)
-    .listen(port - 0 + 1, () => {
-        console.log(`Listening on port ${port - 0 + 1}`);
+    .listen(port, () => {
+        console.log(`Listening on port ${port}`);
     });
