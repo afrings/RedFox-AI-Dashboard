@@ -13,7 +13,7 @@ dotenv.config({ path: '.env' });
 
 const app = express();
 const corsOptions = {
-    origin: 'http://localhost:4000',
+    origin: 'http://localhost:3000',
     credentials: true,
     optionSuccessStatus:200,
 }
@@ -34,7 +34,11 @@ const ddbClient = new DynamoDBClient
     apiVersion: 'latest'
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5005;
+
+app.get("/healthCheck", (req, res) => {
+    res.status(200).send("Application Status: Healthy");
+});
 
 app.get("/createTable", async(req, res) => {
     try {
@@ -121,8 +125,6 @@ app.get('/login', async(req, res) => {
 
 const PORT = port || 5005;
 
-http
-    .createServer(app)
-    .listen(port, () => {
-        console.log(`Listening on port ${port}`);
-    });
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+});
