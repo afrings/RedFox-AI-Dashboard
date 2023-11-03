@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import DropDown from '../interactives/selectPageDropDown';
+import DatePicker from '../interactives/datePicker';
 import DisplayAll from '../pageLayouts/displayAll';
 import DisplayUsersReturnRates from '../pageLayouts/displayUsersReturnRates';
 import DisplayTimeInteractions from '../pageLayouts/displayTimeInteractions';
 import DisplayReviewsUserIssues from '../pageLayouts/displayReviewsUserIssues';
 import DisplayCost from '../pageLayouts/displayCost';
+import zIndex from '@mui/material/styles/zIndex';
 
 export default function Main() {
     const [display, setDisplay] = useState('all');
@@ -33,6 +35,7 @@ export default function Main() {
         <div>
             <div style={{zIndex:'200',}}>
                 <DropDown changeDisplay={changeDisplay}/>
+                <DatePicker/>
             </div>
             {
             renderDisplay(display)
