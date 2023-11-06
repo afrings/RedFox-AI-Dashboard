@@ -6,7 +6,6 @@ import DisplayUsersReturnRates from '../pageLayouts/displayUsersReturnRates';
 import DisplayTimeInteractions from '../pageLayouts/displayTimeInteractions';
 import DisplayReviewsUserIssues from '../pageLayouts/displayReviewsUserIssues';
 import DisplayCost from '../pageLayouts/displayCost';
-import zIndex from '@mui/material/styles/zIndex';
 
 export default function Main() {
     const [display, setDisplay] = useState('all');
