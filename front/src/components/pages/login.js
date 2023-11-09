@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { authenticate, logout } from '../services/authenticate';
 
 export default function Login() {
 
@@ -20,9 +21,8 @@ export default function Login() {
 
     const login = async(username, password) => {
         try{
-            const response = await fetch(`http://localhost:3001/login?username=${username}&password=${password}`);
-            const res = await response.json();
-            console.log(res);
+            const response = await authenticate(username, password);
+            console.log(response);
         } catch(error) {
             console.log(error);
         }
@@ -33,7 +33,7 @@ export default function Login() {
         <div style={pageFormat}>
             <input placeholder={"Username"} onChange={handleChangeUsername} style={inputUsernameStyle}></input>
             <input placeholder={"Password"} onChange={handleChangePassword} type='password' style={inputPasswordStyle}></input>
-            <button style={loginButtonStyle} onClick={(e) => login(state.username, state.password)}> Login </button>
+            <button style={loginButtonStyle} onClick={(e) => login('austin.frings@redfox-ai.com', 'x070799!X,.')}> Login </button>
         </div>
     );
 }
