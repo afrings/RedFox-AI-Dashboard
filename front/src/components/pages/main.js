@@ -6,6 +6,7 @@ import DisplayUsersReturnRates from '../pageLayouts/displayUsersReturnRates';
 import DisplayTimeInteractions from '../pageLayouts/displayTimeInteractions';
 import DisplayReviewsUserIssues from '../pageLayouts/displayReviewsUserIssues';
 import DisplayCost from '../pageLayouts/displayCost';
+import ResponsiveAppBar from '../interactives/appBar';
 
 export default function Main() {
     const [display, setDisplay] = useState('all');
@@ -32,13 +33,18 @@ export default function Main() {
 
     return(
         <div>
+            <ResponsiveAppBar/>
             <div style={{zIndex:'200',}}>
                 <DropDown changeDisplay={changeDisplay}/>
                 <DatePicker/>
             </div>
-            {
-            renderDisplay(display)
-            }
+            <div style={graphStyle}>
+                { renderDisplay(display) }
+            </div>
         </div>
     );
+}
+
+const graphStyle = {
+    position: 'relative',
 }

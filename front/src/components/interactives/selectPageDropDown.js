@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@mui/material/Button';
 
 const DropDown = ({changeDisplay}) => {
     const [open, setOpen] = React.useState(false);
@@ -33,8 +34,8 @@ const DropDown = ({changeDisplay}) => {
     }
 
     return (
-        <div>
-            <button onClick={handleOpen}>Change Display</button>
+        <div style={DropDownStyle}>
+            <Button variant='contained' disableElevation onClick={handleOpen}>Change Display</Button>
             {open ? (
                 <ul style={menu}>
                     <li style={menuLi}>
@@ -58,6 +59,11 @@ const DropDown = ({changeDisplay}) => {
     );
 };
 
+const DropDownStyle = {
+    position: 'absolute',
+    top: '1.5vh',
+};
+
 const menu = {
     position: 'absolute',
     listStyleType: 'none',
@@ -66,6 +72,7 @@ const menu = {
     border: '2px solid black',
     backgroundColor: 'white',
     zIndex:'200',
+    top: '4.5vh',
 };
 
 const menuLi = {
