@@ -23,6 +23,7 @@ export default function Login() {
         try{
             const response = await authenticate(username, password);
             console.log(response);
+            handleClick();
         } catch(error) {
             console.log(error);
         }
