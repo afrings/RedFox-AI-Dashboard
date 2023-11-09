@@ -41,6 +41,7 @@ const DateRangeStyle = {
     zIndex: '200',
     right: '0vw',
     top: '1.3vw',
+    border: '2px solid black',
 }
 
 const DateRangeButtonStyle = {
