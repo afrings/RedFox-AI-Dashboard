@@ -47,4 +47,5 @@ export default function Main() {
 
 const graphStyle = {
     position: 'relative',
+    top: '-3vh',
 }

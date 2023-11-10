@@ -10,7 +10,7 @@ import CostChart from '../charts/costChart';
 export default function DisplayAll() {
     
     return (
-    <div>    
+    <div style={{position:'relative', display:'block', marginLeft:'1vw', marginRight:'1vw',}}>    
         <div style={chartsStyle}>
             <div style={usersChartStyle}>
                 <UserChart/>
