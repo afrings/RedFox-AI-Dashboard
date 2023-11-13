@@ -40,16 +40,16 @@ function DatePicker() {
 const DateRangeStyle = {
     position:'absolute',
     zIndex: '200',
-    right: '1vw',
+    right: '0.5vw',
     top: '6.75vh',
 }
 
 const DateRangeButtonStyle = {
     position: 'absolute',
-    top: '-5.75vh',
+    top: '-5.4vh',
     right: '10px',
     margin: '1px',
-    height: '40px',
+    height: '36px',
     width: '150px',
 }
 

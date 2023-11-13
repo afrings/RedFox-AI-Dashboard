@@ -29,7 +29,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Successful User Interactions',
+      text: 'Percent Successful Interactions',
     },
   },
 };

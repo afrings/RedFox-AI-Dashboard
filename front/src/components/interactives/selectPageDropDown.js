@@ -62,7 +62,7 @@ const DropDown = ({changeDisplay}) => {
 const DropDownStyle = {
     position: 'absolute',
     top: '1.5vh',
-    right: '10vw',
+    right: '200px',
 };
 
 const menu = {

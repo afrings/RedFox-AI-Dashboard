@@ -34,7 +34,7 @@ export default function Main() {
     return(
         <div>
             <ResponsiveAppBar/>
-            <div style={{zIndex:'200',}}>
+            <div style={{zIndex:'200'}}>
                 <DropDown changeDisplay={changeDisplay}/>
                 <DatePicker/>
             </div>
