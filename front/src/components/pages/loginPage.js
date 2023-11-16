@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authenticate, logout } from '../services/authenticate';
 
@@ -19,10 +19,10 @@ export default function Login() {
         navigate('/main');
     };
 
-    const login = async(username, password) => {
+    const login = async(username, password, tempPassword) => {
         try{
-            const response = await authenticate(username, password);
-            console.log(response);
+            const response = await authenticate(username, password, tempPassword);
+            sessionStorage.setItem('jwt', response.accessToken.jwtToken);
             handleClick();
         } catch(error) {
             console.log(error);
@@ -34,7 +34,7 @@ export default function Login() {
         <div style={pageFormat}>
             <input placeholder={"Username"} onChange={handleChangeUsername} style={inputUsernameStyle}></input>
             <input placeholder={"Password"} onChange={handleChangePassword} type='password' style={inputPasswordStyle}></input>
-            <button style={loginButtonStyle} onClick={(e) => login('austin.frings@redfox-ai.com', 'x070799!X,.')}> Login </button>
+            <button style={loginButtonStyle} onClick={(e) => login('austin.frings@redfox-ai.com', 'Password12345,.')}> Login </button>
         </div>
     );
 }

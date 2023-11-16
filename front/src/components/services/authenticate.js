@@ -1,22 +1,20 @@
-import { AuthenticationDetails, CognitoUser, CognitoUserPool } from "amazon-cognito-identity-js";
+import { AuthenticationDetails, CognitoUser, } from "amazon-cognito-identity-js";
+import { CognitoIdentityServiceProvider } from "aws-sdk";
 
-const Userpool = new CognitoUserPool({
-    UserPoolId: "us-east-1_VGCxxorff",
-    ClientId: "3csq21turk649b3poj695sbnoi",
-})
+import Userpool from "./userpool";
 
-export const authenticate = (Email, Password) => {
+export const authenticate = (Email, Password, TempPassword) => {
     return new Promise((resolve, reject) => {
+        console.log('login')
         const user = new CognitoUser({
             Username: Email,
             Pool: Userpool,
         })
-
         const authDetails = new AuthenticationDetails({
             Username: Email,
-            Password: Password,
+            Password:  TempPassword ? TempPassword : Password,
         })
-
+        console.log(authDetails)
         user.authenticateUser(authDetails, {
             onSuccess:(result) => {
                 console.log('login successful');
@@ -29,8 +27,14 @@ export const authenticate = (Email, Password) => {
             newPasswordRequired: function(userAttributes, requiredAttributes) {
                 // requiredAttributes: authDetails.Username;
                 const attributesData = {}
-                user.completeNewPasswordChallenge('password', attributesData, this)
-            }
+                user.completeNewPasswordChallenge(Password, attributesData, this)
+            },
+            // mfaSetup: async function() {
+            //     const identityProvider = new CognitoIdentityServiceProvider({ region: 'us-east-1' });
+            //     const params = {}
+            //     const res = await identityProvider.associateSoftwareToken(params, ()=>{});
+            //     console.log(res)
+            // },
         });
     });
 };

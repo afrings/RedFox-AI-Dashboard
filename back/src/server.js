@@ -5,9 +5,6 @@ import { DynamoDBClient, GetItemCommand, PutItemCommand, CreateTableCommand, Del
 import { unmarshall } from '@aws-sdk/util-dynamodb';
 import session from 'express-session';
 import bodyParser from 'body-parser';
-import https from 'https';
-import http from 'http';
-import fs from 'fs';
 
 dotenv.config({ path: '.env' });
 
@@ -22,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-    secret: "A Secret Key",
+    secret: "skdf;NL:*ILLK!kl123j1lk3nml'.?ds;ksdf",
     resave: true,
     saveUninitialized: true,
 }));
@@ -107,17 +104,7 @@ app.get("/getItem/:itemName", async(req, res) => {
 
 app.get('/login', async(req, res) => {
     try {
-        const command = new GetItemCommand({
-            TableName: process.env.DB_LOGIN,
-            Key: {
-                Items: { S: req.query.itemName },
-            },
-        });
-
-        const response = await ddbClient.send(command);
-        if(! response.Item) return;
-        console.log(response)
-        res.status(200).send(unmarshall(response.Item));
+        
     } catch (err) {
         console.log(err);
     }
