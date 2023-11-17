@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dashboarb-dev-120244-authRole",
+      "UnauthRoleArn": "arn:aws:iam::696346543581:role/amplify-dashboarb-dev-120244-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::696346543581:role/amplify-dashboarb-dev-120244-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dashboarb-dev-120244-deployment",
+      "UnauthRoleName": "amplify-dashboarb-dev-120244-unauthRole",
+      "StackName": "amplify-dashboarb-dev-120244",
+      "StackId": "arn:aws:cloudformation:us-east-1:696346543581:stack/amplify-dashboarb-dev-120244/824c3630-8573-11ee-82b1-0e5eed6407a9",
+      "AmplifyAppId": "d3kbpkaoruc8vv"
+    },
+    "categories": {
+      "auth": {
+        "dashboarb5ea8954d": {
+          "userPoolId": "us-east-1_VGCxxorff",
+          "userPoolName": "Dashboard User Pool",
+          "webClientId": "3csq21turk649b3poj695sbnoi",
+          "nativeClientId": "3csq21turk649b3poj695sbnoi"
+        }
+      }
+    }
+  }
+}
