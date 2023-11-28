@@ -13,11 +13,11 @@
     },
     "categories": {
       "auth": {
-        "dashboarb5ea8954d": {
-          "userPoolId": "us-east-1_VGCxxorff",
-          "userPoolName": "Dashboard User Pool",
-          "webClientId": "3csq21turk649b3poj695sbnoi",
-          "nativeClientId": "3csq21turk649b3poj695sbnoi"
+        "dashboarb4012d1c7": {
+          "userPoolId": "us-east-1_1smqCKylA",
+          "userPoolName": "Logistics Dashboard Userpool",
+          "webClientId": "33u99cf3fpjkqrkf6kqumj7evo",
+          "nativeClientId": "33u99cf3fpjkqrkf6kqumj7evo"
         }
       }
     }

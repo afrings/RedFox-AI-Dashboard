@@ -1,6 +1,6 @@
 {
   "auth": {
-    "dashboarb5ea8954d": {
+    "dashboarb4012d1c7": {
       "customAuth": false,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -9,35 +9,35 @@
     }
   },
   "parameters": {
-    "AMPLIFY_auth_dashboarb5ea8954d_nativeClientId": {
+    "AMPLIFY_auth_dashboarb4012d1c7_nativeClientId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "dashboarb5ea8954d"
+          "resourceName": "dashboarb4012d1c7"
         }
       ]
     },
-    "AMPLIFY_auth_dashboarb5ea8954d_userPoolId": {
+    "AMPLIFY_auth_dashboarb4012d1c7_userPoolId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "dashboarb5ea8954d"
+          "resourceName": "dashboarb4012d1c7"
         }
       ]
     },
-    "AMPLIFY_auth_dashboarb5ea8954d_userPoolName": {
+    "AMPLIFY_auth_dashboarb4012d1c7_userPoolName": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "dashboarb5ea8954d"
+          "resourceName": "dashboarb4012d1c7"
         }
       ]
     },
-    "AMPLIFY_auth_dashboarb5ea8954d_webClientId": {
+    "AMPLIFY_auth_dashboarb4012d1c7_webClientId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "dashboarb5ea8954d"
+          "resourceName": "dashboarb4012d1c7"
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "dashboarb5ea8954d",
+  "resourceName": "dashboarb4012d1c7",
   "serviceType": "imported",
   "region": "us-east-1",
   "usernameAttributes": [
@@ -16,9 +16,11 @@
     "Requires Numbers",
     "Requires Symbols"
   ],
-  "mfaConfiguration": "OFF",
+  "mfaConfiguration": "ON",
   "autoVerifiedAttributes": [
     "email"
   ],
-  "mfaTypes": []
+  "mfaTypes": [
+    "TOTP"
+  ]
 }
