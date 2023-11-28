@@ -37,7 +37,7 @@ export default function Main() {
 
     const renderDisplay = (display) => {
         // only render if valid jwt token exists
-        if(verified){
+        // if(verified){
             switch(display) {
                 case 'all':
                     return <DisplayAll/>;
@@ -50,13 +50,13 @@ export default function Main() {
                 case 'cost':
                     return <DisplayCost/>;
             }
-        }
+        // }
     }
 
     return(
         <div>
             {/*only render if valid jwt token exists*/}
-            {verified ? (
+            {/* {verified ? ( */}
                 <div>
                     <ResponsiveAppBar/>
                     <div style={{zIndex:'200'}}>
@@ -67,7 +67,7 @@ export default function Main() {
                         { renderDisplay(display) }
                     </div>
                 </div> 
-            ) : null}
+            {/* ) : null} */}
         </div>
         
     );
