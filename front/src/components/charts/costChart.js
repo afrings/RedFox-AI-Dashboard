@@ -18,7 +18,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
+// not in use
 export const options = {
   responsive: true,
   maintainAspectRatio: false,

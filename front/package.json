@@ -14,7 +14,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "amazon-cognito-identity-js": "^6.3.7",
-    "aws-amplify": "^6.0.3",
+    "aws-amplify": "^6.0.5",
     "aws-jwt-verify": "^4.0.0",
     "aws-sdk": "^2.1495.0",
     "chart.js": "^4.4.0",

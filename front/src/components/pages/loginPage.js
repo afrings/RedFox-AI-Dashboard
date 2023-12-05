@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signIn, signOut, confirmSignIn, fetchAuthSession, setUpTOTP } from 'aws-amplify/auth';
 import QRCode from 'react-qr-code';
@@ -11,11 +11,28 @@ export default function Login() {
     const [savedPassword, setSavedPassword] = useState({useSavedPassword: false, savedPassword: ''});
     const [loginStage, setLoginStage] = useState('login');
     const [passwordWarning, setPasswordWarning] = useState({passwordWarningMessage: ''});
-    const [mfa, setMfa] = useState('');
+    const [mfa, setMfa] = useState({mfaCode: '', mfaUri: ''});
+
+    var totpPromise;
+
+    // useEffect(() => {
+    //     var button = document.getElementById('button');
+    //     console.log(button);
+    //     if (button) {
+    //         console.log('createButton')
+    //         totpPromise = new Promise((resolve) => {
+    //             button.addEventListener('click', function() {
+    //                 console.log('click')
+    //                 console.log(mfa.mfaCode);
+    //                 resolve(mfa.mfaCode);
+    //             });
+    //         });
+    //     }
+    // });
 
     const handleChangeMfaCode = (event) => {
         setMfa({mfaCode: event.target.value, mfaUri: mfa.mfaUri});
-    }
+    };
 
     const handleChangeUsername = (event) => {
         setState({username: event.target.value, password: state.password, newPassword: state.newPassword});
@@ -69,10 +86,16 @@ export default function Login() {
                     setMfa({mfaUri: setupUri.href, mfaCode: mfa.mfaCode});
 
                     setLoginStage('mfa');
-                    const totp = await mfaCodePromise;
-                    console.log(totp);
-                    const response = await confirmSignIn({challengeResponse: totp});
-                    console.log(response);
+                    console.log('here');
+                    var button = document.getElementById('button');
+                    button.addEventListener('click', async function() {
+                        console.log('click');
+                        const totp = await totpPromise;
+                        console.log(totp);
+                    })
+                    
+                    // const response = await confirmSignIn({challengeResponse: totp});
+                    // console.log(response);
             }
             if (accessToken) {
                 sessionStorage.setItem('jwt', accessToken.toString());
@@ -108,10 +131,6 @@ export default function Login() {
             }
         }
     }
-
-    const getTotpCode = async() => {
-        return mfa.mfaCode;
-    }
     
     return (
         <div>
@@ -135,10 +154,11 @@ export default function Login() {
             : null}
 
             {loginStage === 'mfa' ? 
+            // request totp
             <div style={pageFormat}>
                 <QRCode value={mfa.mfaUri} style={mfaQrCodeStyle}/>
                 <input placeholder={'Multi-Factor Authentication Code'} value={mfa.mfaCode} onChange={handleChangeMfaCode} style={mfaCodeInputStyle}></input>
-                <button style={loginButtonStyle} onClick={}> Confirm MFA </button>
+                <button id='button' style={loginButtonStyle} onClick={null}> Confirm MFA </button>
             </div>
             : null}
 
@@ -192,7 +212,9 @@ const loginButtonStyle = {
 
 const mfaQrCodeStyle = {
     gridColumn: '5',
-    gridRow: '6',
+    gridRow: '4',
+    width: 'auto',
+    height: 'auto',
 };
 
 const mfaCodeInputStyle = {
