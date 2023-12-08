@@ -37,7 +37,7 @@ export default function Main() {
 
     const renderDisplay = (display) => {
         // only render if valid jwt token exists
-        // if(verified){
+        if(verified){
             switch(display) {
                 case 'all':
                     return <DisplayAll/>;
@@ -50,7 +50,7 @@ export default function Main() {
                 case 'cost':
                     return <DisplayCost/>;
             }
-        // }
+        }
     }
 
     return(
