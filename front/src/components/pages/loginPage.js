@@ -9,6 +9,7 @@ import imageUrl from '../assests/Secondary-CMYK.png';
 
 export default function Login() {
 
+    const navigate = useNavigate();
     const [state, setState] = useState({username: 'austin.frings@redfox-ai.com', password: 'Pass12,.', newPassword: ''});
     const [savedPassword, setSavedPassword] = useState({useSavedPassword: false, savedPassword: ''});
     const [loginStage, setLoginStage] = useState('login');
@@ -19,6 +20,7 @@ export default function Login() {
     const event = new Event('totp');
     var totpPromise = new Promise((resolve) => {
         document.addEventListener('totp', (e) => {
+            // get totp directly from element rather than state object bc state will not be updated immediately
             resolve(document.getElementById('mfaInput').value);
         });
     });
@@ -30,7 +32,8 @@ export default function Login() {
             button = document.getElementById('button');
             console.log(button);
             if (button) {
-                // button click event triggers custom event declared above
+                // button click event triggers custom event declared above, resolving the promise in
+                // CONTINUE_SIGN_IN_WITH_TOTP_SETUP or CONFIRM_SIGN_IN_WITH_TOTP_CODE
                 button.addEventListener('click', function() {
                     document.dispatchEvent(event);
                 });
@@ -70,10 +73,68 @@ export default function Login() {
         console.log('Captcha value: ', value);
     }
 
-    const navigate = useNavigate();
-    const handleClick = () => {
-        navigate('/main');
+    const signInWithNewPassword = async() => {
+        // store the temporary password to be used automatically with next signIn
+        setSavedPassword({useSavedPassword: true, savedPassword: password});
+        setLoginStage('requestNewPassword');
+        setState({username: state.username, password: '', newPassword: state.newPassword});
+        if (isPasswordValid(state.newPassword) && isPasswordValid(state.password) && state.newPassword === state.password){
+            try {
+                var response = await confirmSignIn({challengeResponse: state.password});
+                console.log(response);
+                setState({username: state.username, password: '', newPassword: ''});
+                setSavedPassword({useSavedPassword: false, savedPassword: ''});
+                setLoginStage('login');
+            } catch(e) {
+                console.log(e);
+            }
+        }
     };
+
+    const signInWithTotpSetup = async() => {
+        const totpSetupDetails = nextStep.totpSetupDetails;
+        const appName = 'RedFox AI Dashboard';
+        const setupUri = totpSetupDetails.getSetupUri(appName);
+        setMfa({mfaUri: setupUri.href, mfaCode: mfa.mfaCode});
+
+        setLoginStage('mfaSetup');
+
+        var totp = await totpPromise;
+        console.log('TOTP RESPONSE: ', totp);
+        var needTotp = true;
+        while (needTotp) {
+            try {
+                var response = await confirmSignIn({challengeResponse: totp});
+                needTotp = false;
+            } catch (e) {
+                totpPromise = new Promise((resolve) => {
+                    document.addEventListener('totp', (e) => {
+                        resolve(document.getElementById('mfaInput').value);
+                    });
+                });
+                totp = await totpPromise;
+            }
+        }
+    };
+
+    const signInWithTotpCode = async() => {
+        var totp = await totpPromise;
+        console.log('TOTP RESPONSE: ', totp);
+        var needTotp = true;
+        while (needTotp) {
+            try {
+                var response = await confirmSignIn({challengeResponse: totp});
+                needTotp = false;
+            } catch (e) {
+                totpPromise = new Promise((resolve) => {
+                    document.addEventListener('totp', (e) => {
+                        resolve(document.getElementById('mfaInput').value);
+                    });
+                });
+                totp = await totpPromise;
+            }
+        }
+    }
 
     const login = async(username, password, tempPassword) => {
         try{
@@ -84,75 +145,24 @@ export default function Login() {
             switch (nextStep.signInStep) {
                 case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED':
                     console.log('request new password');
-                    // store the temporary password
-                    setSavedPassword({useSavedPassword: true, savedPassword: password});
-                    setLoginStage('requestNewPassword');
-                    setState({username: state.username, password: '', newPassword: state.newPassword});
-                    if (isPasswordValid(state.newPassword) && isPasswordValid(state.password) && state.newPassword === state.password){
-                        try {
-                            var response = await confirmSignIn({challengeResponse: state.password});
-                            console.log(response);
-                            setState({username: state.username, password: '', newPassword: ''});
-                            setSavedPassword({useSavedPassword: false, savedPassword: ''});
-                            setLoginStage('login');
-                        } catch(e) {
-                            console.log(e);
-                        }
-                    }
+                    await signInWithNewPassword();
                     break;
 
                 case 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP':
                     console.log('mfaSetup');
-                    const totpSetupDetails = nextStep.totpSetupDetails;
-                    const appName = 'RedFox AI Dashboard';
-                    const setupUri = totpSetupDetails.getSetupUri(appName);
-                    setMfa({mfaUri: setupUri.href, mfaCode: mfa.mfaCode});
-
-                    setLoginStage('mfaSetup');
-
-                    var totp = await totpPromise;
-                    console.log('TOTP RESPONSE: ', totp);
-                    var needTotp = true;
-                    while (needTotp) {
-                        try {
-                            var response = await confirmSignIn({challengeResponse: totp});
-                            needTotp = false;
-                        } catch (e) {
-                            totpPromise = new Promise((resolve) => {
-                                document.addEventListener('totp', (e) => {
-                                    resolve(document.getElementById('mfaInput').value);
-                                });
-                            });
-                            totp = await totpPromise;
-                        }
-                    }
+                    await signInWithTotpSetup();
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
                     break;
 
                 case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
                     setLoginStage('mfa');
-                    var totp = await totpPromise;
-                    console.log('TOTP RESPONSE: ', totp);
-                    var needTotp = true;
-                    while (needTotp) {
-                        try {
-                            var response = await confirmSignIn({challengeResponse: totp});
-                            needTotp = false;
-                        } catch (e) {
-                            totpPromise = new Promise((resolve) => {
-                                document.addEventListener('totp', (e) => {
-                                    resolve(document.getElementById('mfaInput').value);
-                                });
-                            });
-                            totp = await totpPromise;
-                        }
-                    }
+                    await signInWithTotpCode();
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
                     break;
             }
             if (accessToken) {
                 sessionStorage.setItem('jwt', accessToken.toString());
-                handleClick();
+                navigate('/main');
             }
         } catch(error) {
             if (error.name === 'UserAlreadyAuthenticatedException') {
