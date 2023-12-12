@@ -5,7 +5,7 @@ import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
 import QRCode from 'react-qr-code';
 // import ReCAPTCHA from 'react-google-recaptcha';
 import isPasswordValid from '../services/isPasswordValid';
-import imageUrl from '../assests/Secondary-CMYK.png';
+import imageUrl from '../assets/Secondary-CMYK.png'
 
 export default function Login() {
 
@@ -73,7 +73,7 @@ export default function Login() {
         console.log('Captcha value: ', value);
     }
 
-    const signInWithNewPassword = async() => {
+    const signInWithNewPassword = async(password) => {
         // store the temporary password to be used automatically with next signIn
         setSavedPassword({useSavedPassword: true, savedPassword: password});
         setLoginStage('requestNewPassword');
@@ -91,7 +91,7 @@ export default function Login() {
         }
     };
 
-    const signInWithTotpSetup = async() => {
+    const signInWithTotpSetup = async(nextStep) => {
         const totpSetupDetails = nextStep.totpSetupDetails;
         const appName = 'RedFox AI Dashboard';
         const setupUri = totpSetupDetails.getSetupUri(appName);
@@ -145,12 +145,12 @@ export default function Login() {
             switch (nextStep.signInStep) {
                 case 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED':
                     console.log('request new password');
-                    await signInWithNewPassword();
+                    await signInWithNewPassword(password);
                     break;
 
                 case 'CONTINUE_SIGN_IN_WITH_TOTP_SETUP':
                     console.log('mfaSetup');
-                    await signInWithTotpSetup();
+                    await signInWithTotpSetup(nextStep);
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
                     break;
 
