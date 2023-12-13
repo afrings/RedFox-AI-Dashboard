@@ -20,20 +20,20 @@ export default function Main() {
     //verify jwt from session storage
     const verify = useCallback(async() => {
         try {
-            const payload = await Verifier.verify(
+            await Verifier.verify(
                 sessionStorage.getItem('jwt')
             )
             setVerified(true)
         } catch(e) {
             console.log(`Invalid jwt token: ${e}`);
         }
-    },[]);
+    });
 
     //reload page when verified
     useEffect(() => {
         verify()
             .catch(console.error);
-    }, []);
+    });
 
     const renderDisplay = (display) => {
         // only render if valid jwt token exists
@@ -56,7 +56,7 @@ export default function Main() {
     return(
         <div>
             {/*only render if valid jwt token exists*/}
-            {/* {verified ? ( */}
+            {verified ?
                 <div>
                     <ResponsiveAppBar/>
                     <div style={{zIndex:'200'}}>
@@ -67,7 +67,7 @@ export default function Main() {
                         { renderDisplay(display) }
                     </div>
                 </div> 
-            {/* ) : null} */}
+            : null}
         </div>
         
     );

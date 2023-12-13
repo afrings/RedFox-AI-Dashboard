@@ -19,7 +19,7 @@ function DatePicker() {
 
     return(
         <div style={DateRangeStyle}>
-            <Button variant='contained' disableElevation style={DateRangeButtonStyle} onClick={() => setVisible(!visible)}>Change Dates</Button>
+            <Button variant='contained' disableElevation sx={DateRangeButtonStyle} onClick={() => setVisible(!visible)}>Change Dates</Button>
             <div>
                 {visible ?
                 <div style={CalendarStyle}>
@@ -51,6 +51,10 @@ const DateRangeButtonStyle = {
     margin: '1px',
     height: '36px',
     width: '150px',
+    background: '#f55353',
+    '&:hover': {
+        background: '#e01f1f',
+    }
 }
 
 const CalendarStyle = {

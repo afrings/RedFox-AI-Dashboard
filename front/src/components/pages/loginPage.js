@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signIn, signOut, confirmSignIn, fetchAuthSession } from 'aws-amplify/auth';
-import { Box, Card, CardContent, CardMedia, Grid } from '@mui/material';
+import { Box, Card, CardContent, CardMedia} from '@mui/material';
 import QRCode from 'react-qr-code';
 // import ReCAPTCHA from 'react-google-recaptcha';
 import isPasswordValid from '../services/isPasswordValid';

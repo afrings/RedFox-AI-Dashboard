@@ -35,7 +35,7 @@ const DropDown = ({changeDisplay}) => {
 
     return (
         <div style={DropDownStyle}>
-            <Button variant='contained' disableElevation onClick={handleOpen}>Change Display</Button>
+            <Button variant='contained' sx={dateDropDownButtonStyle} disableElevation onClick={handleOpen}>Change Display</Button>
             {open ? (
                 <ul style={menu}>
                     <li style={menuLi}>
@@ -81,5 +81,12 @@ const menuLi = {
     backgroundColor: 'white',
     zIndex:'200',
 };
+
+const dateDropDownButtonStyle = {
+    background: '#f55353',
+    '&:hover': {
+        background: '#e01f1f',
+    }
+}
 
 export default DropDown;

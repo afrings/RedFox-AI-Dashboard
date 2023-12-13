@@ -6,32 +6,75 @@ import IssuesChart from '../charts/issuesChart';
 import TimeChart from '../charts/timeChart';
 import InteractionsChart from '../charts/interactionsChart';
 import CostChart from '../charts/costChart';
+import { Card, CardContent} from '@mui/material'
 
 export default function DisplayAll() {
     
     return (
     <div style={{position:'relative', display:'block', marginLeft:'1vw', marginRight:'1vw',}}>    
         <div style={chartsStyle}>
-            <div style={usersChartStyle}>
-                <UserChart/>
+            <div>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '39vh'}}
+                    >
+                        <UserChart/>
+                    </CardContent>
+                </Card>
             </div>
-            <div style={returnsChartStyle}>
-                <ReturnsChart/>
+            <div>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '39vh'}}
+                    >
+                        <ReturnsChart/>
+                    </CardContent>
+                </Card>
             </div>
-            <div style={timeChartStyle}>
-                <TimeChart/>
+            <div>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '28vh'}}
+                    >
+                        <TimeChart/>
+                    </CardContent>
+                </Card>
             </div>
-            <div style={interactionsChartStyle}>
-                <InteractionsChart/>
+            <div>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '28vh'}}
+                    >
+                        <InteractionsChart/>
+                    </CardContent>
+                </Card>
             </div>
             <div style={reviewsChartStyle}>
-                <ReviewsChart/>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '35vh'}}
+                    >
+                        <ReviewsChart/>
+                    </CardContent>
+                </Card>
             </div>
             <div style={issuesChartStyle}>
-                <IssuesChart/>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '35vh'}}
+                    >
+                        <IssuesChart/>
+                    </CardContent>
+                </Card>
             </div>
             <div style={costChartStyle}>
-                <CostChart/>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '46vh'}}
+                    >
+                        <CostChart/>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     </div>
@@ -45,8 +88,6 @@ const chartsStyle = {
     gridTemplateColumns: '25vw 25vw 25vw 22vw',
     gap: '5px',
     gridAutoRows: '5vh',
-    backgroundColor: 'black',
-    border: '5px solid black',
 };
 
 const usersChartStyle = {
