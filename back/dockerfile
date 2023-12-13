@@ -1,0 +1,7 @@
+FROM node:18.16.0
+WORKDIR /back
+COPY ["package.json", "./"]
+RUN npm install
+EXPOSE 5005
+COPY . .
+CMD ["node", "src/server.js"]
