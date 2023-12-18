@@ -12,6 +12,7 @@ import Verifier from '../services/awsJwtVerifier';
 export default function Main() {
     const [display, setDisplay] = useState('all');
     const [verified, setVerified] = useState(false);
+    const [date, setDate] = useState({startDate: null, endDate: null});
 
     const changeDisplay = (newDisplay) => {
         setDisplay(newDisplay);
@@ -34,6 +35,10 @@ export default function Main() {
         verify()
             .catch(console.error);
     });
+
+    useEffect(() => {
+        console.log(date);
+    }, [date])
 
     const renderDisplay = (display) => {
         // only render if valid jwt token exists
@@ -61,7 +66,7 @@ export default function Main() {
                     <ResponsiveAppBar/>
                     <div style={{zIndex:'200'}}>
                         <DropDown changeDisplay={changeDisplay}/>
-                        <DatePicker/>
+                        <DatePicker setDate={setDate}/>
                     </div>
                     <div style={graphStyle}>
                         { renderDisplay(display) }

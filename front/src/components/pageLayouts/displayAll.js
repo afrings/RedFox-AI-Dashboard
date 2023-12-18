@@ -70,7 +70,7 @@ export default function DisplayAll() {
             <div style={costChartStyle}>
                 <Card raised >
                     <CardContent
-                        sx={{height: '46vh'}}
+                        sx={{height: '46.35vh'}}
                     >
                         <CostChart/>
                     </CardContent>

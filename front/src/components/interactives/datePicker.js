@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import { useState, useEffect, } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import Button from '@mui/material/Button';
 
-function DatePicker() {
+function DatePicker({setDate}) {
     const [visible, setVisible] = useState(false);
-
-    // const 
 
     const [state, setState] = useState([
         {
-          startDate: new Date(),
+          startDate: null,
           endDate: null,
           key: 'selection'
         }
     ]);
+
+    useEffect(() => {
+        setDate({startDate: state[0].startDate, endDate: state[0].endDate});
+    },[state]);
 
     return(
         <div style={DateRangeStyle}>
