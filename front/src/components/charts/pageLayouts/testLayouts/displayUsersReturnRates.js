@@ -1,17 +1,17 @@
 import React from 'react';
-import TimeChart from '../charts/timeChart';
-import InteractionsChart from '../charts/interactionsChart';
+import UserChart from '../../testCharts/usersChart';
+import ReturnsChart from '../../testCharts/returnsChart';
 
-export default function DisplayTimeInteractions() {
-    
+export default function DisplayUsersReturnRates() {
+
     return (
     <div>    
         <div style={chartsStyle}>
-            <div style={timeChartStyle}>
-                <TimeChart/>
+            <div style={usersChartStyle}>
+                <UserChart/>
             </div>
-            <div style={interactionsChartStyle}>
-                <InteractionsChart/>
+            <div style={returnsChartStyle}>
+                <ReturnsChart/>
             </div>
         </div>
     </div>
@@ -29,15 +29,15 @@ const chartsStyle = {
     border: '5px solid black',
 };
 
-const timeChartStyle = {
-    gridColumn: '1/4',
+const usersChartStyle = {
+    gridColumn: '1/3',
     gridRow: '1/16',
     backgroundColor: 'white',
     paddingBottom: '10px',
 };
 
-const interactionsChartStyle = {
-    gridColumn: '4',
+const returnsChartStyle = {
+    gridColumn: '3/5',
     gridRow: '1/16',
     backgroundColor: 'white',
 };

@@ -1,17 +1,17 @@
 import React from 'react';
-import UserChart from '../charts/usersChart';
-import ReturnsChart from '../charts/returnsChart';
+import ReviewsChart from '../../testCharts/reviewsChart';
+import IssuesChart from '../../testCharts/issuesChart';
 
-export default function DisplayUsersReturnRates() {
-
+export default function DisplayReviewsUserIssues() {
+    
     return (
     <div>    
         <div style={chartsStyle}>
-            <div style={usersChartStyle}>
-                <UserChart/>
+            <div style={reviewsChartStyle}>
+                <ReviewsChart/>
             </div>
-            <div style={returnsChartStyle}>
-                <ReturnsChart/>
+            <div style={issuesChartStyle}>
+                <IssuesChart/>
             </div>
         </div>
     </div>
@@ -29,15 +29,15 @@ const chartsStyle = {
     border: '5px solid black',
 };
 
-const usersChartStyle = {
+const reviewsChartStyle = {
     gridColumn: '1/3',
     gridRow: '1/16',
     backgroundColor: 'white',
-    paddingBottom: '10px',
 };
 
-const returnsChartStyle = {
+const issuesChartStyle = {
     gridColumn: '3/5',
     gridRow: '1/16',
     backgroundColor: 'white',
+    objectFit: 'fill',
 };

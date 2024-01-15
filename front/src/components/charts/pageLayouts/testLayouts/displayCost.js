@@ -1,5 +1,5 @@
 import React from 'react';
-import CostChart from '../charts/costChart';
+import CostChart from '../../testCharts/costChart';
 
 export default function DisplayCost() {
     

@@ -1,17 +1,17 @@
 import React from 'react';
-import ReviewsChart from '../charts/reviewsChart';
-import IssuesChart from '../charts/issuesChart';
+import TimeChart from '../../testCharts/timeChart';
+import InteractionsChart from '../../testCharts/interactionsChart';
 
-export default function DisplayReviewsUserIssues() {
+export default function DisplayTimeInteractions() {
     
     return (
     <div>    
         <div style={chartsStyle}>
-            <div style={reviewsChartStyle}>
-                <ReviewsChart/>
+            <div style={timeChartStyle}>
+                <TimeChart/>
             </div>
-            <div style={issuesChartStyle}>
-                <IssuesChart/>
+            <div style={interactionsChartStyle}>
+                <InteractionsChart/>
             </div>
         </div>
     </div>
@@ -29,15 +29,15 @@ const chartsStyle = {
     border: '5px solid black',
 };
 
-const reviewsChartStyle = {
-    gridColumn: '1/3',
+const timeChartStyle = {
+    gridColumn: '1/4',
     gridRow: '1/16',
     backgroundColor: 'white',
+    paddingBottom: '10px',
 };
 
-const issuesChartStyle = {
-    gridColumn: '3/5',
+const interactionsChartStyle = {
+    gridColumn: '4',
     gridRow: '1/16',
     backgroundColor: 'white',
-    objectFit: 'fill',
 };

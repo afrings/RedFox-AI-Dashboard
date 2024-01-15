@@ -88,7 +88,8 @@ app.get("/getItem/:itemName", async(req, res) => {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
             Key: {
-                Items: { S: req.params.itemName },
+                id: { S: req.params.itemName },
+                customer: { S: req.params.itemName },
             },
         });
 

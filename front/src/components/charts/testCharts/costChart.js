@@ -50,7 +50,7 @@ export default function CostChart() {
   };
 
   const getCostData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/getItem/CostData");
+    const response = await fetch("http://localhost:5005/getItem/Gentueri");
     const costData = await response.json();
     setData([costData.Data[0], costData.Data[1]]);
   }, []);

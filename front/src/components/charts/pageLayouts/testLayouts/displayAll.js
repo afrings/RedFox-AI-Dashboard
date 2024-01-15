@@ -1,11 +1,11 @@
 import React from 'react';
-import UserChart from '../charts/usersChart';
-import ReturnsChart from '../charts/returnsChart';
-import ReviewsChart from '../charts/reviewsChart';
-import IssuesChart from '../charts/issuesChart';
-import TimeChart from '../charts/timeChart';
-import InteractionsChart from '../charts/interactionsChart';
-import CostChart from '../charts/costChart';
+import UserChart from '../../testCharts/usersChart';
+import ReturnsChart from '../../testCharts/returnsChart';
+import ReviewsChart from '../../testCharts/reviewsChart';
+import IssuesChart from '../../testCharts/issuesChart';
+import TimeChart from '../../testCharts/timeChart';
+import InteractionsChart from '../../testCharts/interactionsChart';
+import CostChart from '../../testCharts/costChart';
 import { Card, CardContent} from '@mui/material'
 
 export default function DisplayAll() {
