@@ -30,7 +30,6 @@ export default function Login() {
     useEffect(() => {
         if (loginStage === 'mfaSetup' || loginStage === 'mfa'){
             button = document.getElementById('button');
-            console.log(button);
             if (button) {
                 // button click event triggers custom event declared above, resolving the promise in
                 // CONTINUE_SIGN_IN_WITH_TOTP_SETUP or CONFIRM_SIGN_IN_WITH_TOTP_CODE
