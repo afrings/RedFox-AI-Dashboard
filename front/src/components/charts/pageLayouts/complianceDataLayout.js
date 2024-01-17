@@ -1,9 +1,10 @@
 import React from 'react';
 import TestCompletionChart from '../complianceCharts/testCompletionChart';
+import BarcodeScanTimeChart from '../complianceCharts/barcodeScanTimeChart';
 import StepTimeChart from '../timeCharts/stepTimeChart';
 import { Card, CardContent} from '@mui/material'
 
-export default function ComplianceDataLayout() {
+export default function ComplianceDataLayout({date}) {
     
     return (
     <div style={{position:'relative', display:'block', marginLeft:'1vw', marginRight:'1vw',}}>    
@@ -13,7 +14,7 @@ export default function ComplianceDataLayout() {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <TestCompletionChart/>
+                        <TestCompletionChart date={date}/>
                     </CardContent>
                 </Card>
              </div>
@@ -22,7 +23,7 @@ export default function ComplianceDataLayout() {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        Graph goes here
+                        <BarcodeScanTimeChart date={date}/>
                     </CardContent>
                 </Card>
             </div>

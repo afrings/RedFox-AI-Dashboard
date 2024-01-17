@@ -14,8 +14,8 @@ export default function Main() {
     const [verified, setVerified] = useState(false);
     const [date, setDate] = useState([
         {
-          startDate: new Date(),
-          endDate: null,
+          startDate: null,
+          endDate: new Date(),
           key: 'selection'
         }
     ]);
@@ -27,8 +27,6 @@ export default function Main() {
     const changeDate = (newDate) => {
         setDate(newDate);
     }
-
-    useEffect(() => )
 
     //verify jwt from session storage
     const verify = useCallback(async() => {
@@ -53,7 +51,7 @@ export default function Main() {
         if(verified){
             switch(display) {
                 case 'all':
-                    return <ComplianceDataLayout/>;
+                    return <ComplianceDataLayout date={date}/>;
                 case 'time':
                     return <DisplayTimeInteractions/>;
                 case 'users':

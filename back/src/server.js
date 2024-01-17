@@ -102,7 +102,7 @@ app.get("/getItem/:itemName", async(req, res) => {
     }
 });
 
-app.get("/getComplianceData", async(req, res) => {
+app.get("/getComplianceCompletionData", async(req, res) => {
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -114,13 +114,41 @@ app.get("/getComplianceData", async(req, res) => {
 
         const response = await ddbClient.send(command);
         if(! response.Item) return;
-        console.log(response)
-        var data = unmarshall(response.Item).data
-        res.status(200).send([
-            data.complianceData.testComplete,
-            data.complianceData.testFailure,
-            data.complianceData.testBounce,
-        ]);
+        var data = unmarshall(response.Item).data;
+        let responseData = [0,0,0];
+        for (let i = 0; i < data.length; i++) {
+            responseData[0] += data[i].complianceData.testComplete;
+            responseData[1] += data[i].complianceData.testFailure;
+            responseData[2] += data[i].complianceData.testBounce;
+        }
+        res.status(200).send(responseData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/getComplianceScanTimeData", async(req, res) => {
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        // console.log(response)
+        let data = unmarshall(response.Item).data;
+        let responseData = [];
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].complianceData.barcodeScanTime.times.length; j++) {
+                responseData.push(data[i].complianceData.barcodeScanTime.times[j]);
+            }
+        }
+        console.log(responseData)
+        res.status(200).send(responseData);
     } catch (err) {
         console.log(err);
     }

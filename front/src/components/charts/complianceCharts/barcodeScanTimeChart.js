@@ -34,17 +34,19 @@ export const options = {
   },
 };
 
-const labels = ['Tests Completed', 'Tests Failed', 'Bounces',];
+const generateLabels = (data) => {
+    return data?.map((x) => '');
+}
 
-export default function TestCompletionChart() {
+export default function BarcodeScanTimeChart() {
 
   const [data, setData] = useState();
 
   var chart = {
-    labels: labels,
+    labels: generateLabels(data),
     datasets: [
       {
-        label: 'User Test Completion',
+        label: 'Barcode Scan Times',
         data: data,
         backgroundColor: 'rgba(0, 119, 187, 0.7)',
       },
@@ -52,9 +54,9 @@ export default function TestCompletionChart() {
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/getComplianceCompletionData");
+    const response = await fetch("http://localhost:5005/getComplianceScanTimeData");
     const data = await response.json();
-    setData(data);
+    setData(data.sort());
   }, []);
 
   useEffect(() => {
