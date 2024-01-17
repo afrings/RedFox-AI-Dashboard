@@ -89,7 +89,7 @@ app.get("/getItem/:itemName", async(req, res) => {
             TableName: process.env.DB_NAME,
             Key: {
                 id: { S: req.params.itemName },
-                customer: { S: req.params.itemName },
+                // attributes: { S: req.params.itemName },
             },
         });
 
@@ -102,10 +102,25 @@ app.get("/getItem/:itemName", async(req, res) => {
     }
 });
 
-
-app.get('/login', async(req, res) => {
+app.get("/getComplianceData", async(req, res) => {
     try {
-        
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        console.log(response)
+        var data = unmarshall(response.Item).data
+        res.status(200).send([
+            data.complianceData.testComplete,
+            data.complianceData.testFailure,
+            data.complianceData.testBounce,
+        ]);
     } catch (err) {
         console.log(err);
     }

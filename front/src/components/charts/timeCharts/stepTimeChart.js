@@ -3,22 +3,26 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
+  Filler,
   Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
+  Filler,
   Legend
 );
-// not in use
+
 export const options = {
   responsive: true,
   maintainAspectRatio: false,
@@ -29,17 +33,19 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Cost per Month',
+      text: 'Time to Complete Step',
     },
   },
 };
 
-export default function CostChart() {
+const labels = ['Step 1', 'Step 1.1', 'Step 2', 'Step 3', 'Step 4', 'Step 5','Step 6','Step 7',];
+
+export default function StepTimeChart() {
 
   const [data, setData] = useState({});
 
   var chart = {
-    labels: data[0],
+    labels: labels,
     datasets: [
       {
         label: 'User Reviews',
@@ -49,16 +55,16 @@ export default function CostChart() {
     ],
   };
 
-  const getCostData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/getItem/3");
-    const costData = await response.json();
-    setData([costData.Data[0], costData.Data[1]]);
+  const getData = useCallback(async () => {
+    const response = await fetch("http://localhost:5005/");
+    const data = await response.json();
+    setData([0, 0]);
   }, []);
 
   useEffect(() => {
-    getCostData()
+    getData()
       .catch(console.error);
   }, []);
 
-  return <Bar options={options} data={chart} />;
+  return <Line options={options} data={chart} />;
 }

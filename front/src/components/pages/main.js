@@ -1,21 +1,34 @@
 import { useState, useCallback, useEffect } from 'react';
 import DropDown from '../interactives/selectPageDropDown';
 import DatePicker from '../interactives/datePicker';
-import DisplayAll from '../charts/pageLayouts/testLayouts/displayAll';
 import DisplayUsersReturnRates from '../charts/pageLayouts/testLayouts/displayUsersReturnRates';
 import DisplayTimeInteractions from '../charts/pageLayouts/testLayouts/displayTimeInteractions';
 import DisplayReviewsUserIssues from '../charts/pageLayouts/testLayouts/displayReviewsUserIssues';
 import DisplayCost from '../charts/pageLayouts/testLayouts/displayCost';
+import ComplianceDataLayout from '../charts/pageLayouts/complianceDataLayout';
 import ResponsiveAppBar from '../interactives/appBar';
 import Verifier from '../services/awsJwtVerifier';
 
 export default function Main() {
     const [display, setDisplay] = useState('all');
     const [verified, setVerified] = useState(false);
+    const [date, setDate] = useState([
+        {
+          startDate: new Date(),
+          endDate: null,
+          key: 'selection'
+        }
+    ]);
 
     const changeDisplay = (newDisplay) => {
         setDisplay(newDisplay);
     }
+
+    const changeDate = (newDate) => {
+        setDate(newDate);
+    }
+
+    useEffect(() => )
 
     //verify jwt from session storage
     const verify = useCallback(async() => {
@@ -40,7 +53,7 @@ export default function Main() {
         if(verified){
             switch(display) {
                 case 'all':
-                    return <DisplayAll/>;
+                    return <ComplianceDataLayout/>;
                 case 'time':
                     return <DisplayTimeInteractions/>;
                 case 'users':
@@ -61,7 +74,7 @@ export default function Main() {
                     <ResponsiveAppBar/>
                     <div style={{zIndex:'200'}}>
                         <DropDown changeDisplay={changeDisplay}/>
-                        <DatePicker/>
+                        <DatePicker changeDate={changeDate} state={date}/>
                     </div>
                     <div style={graphStyle}>
                         { renderDisplay(display) }

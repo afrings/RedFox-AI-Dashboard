@@ -4,18 +4,18 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import Button from '@mui/material/Button';
 
-function DatePicker() {
+function DatePicker({changeDate, state}) {
     const [visible, setVisible] = useState(false);
 
     // const 
 
-    const [state, setState] = useState([
-        {
-          startDate: new Date(),
-          endDate: null,
-          key: 'selection'
-        }
-    ]);
+    // const [state, setState] = useState([
+    //     {
+    //       startDate: new Date(),
+    //       endDate: null,
+    //       key: 'selection'
+    //     }
+    // ]);
 
     return(
         <div style={DateRangeStyle}>
@@ -26,7 +26,8 @@ function DatePicker() {
                 <DateRange
                     editableDateInputs={true}
                     onChange={item => {
-                        setState([item.selection]); 
+                        // setState([item.selection]);
+                        changeDate([item.selection]);
                     }}
                     moveRangeOnFirstSelection={false}
                     ranges={state}

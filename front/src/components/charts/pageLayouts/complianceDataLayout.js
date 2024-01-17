@@ -1,5 +1,6 @@
 import React from 'react';
-
+import TestCompletionChart from '../complianceCharts/testCompletionChart';
+import StepTimeChart from '../timeCharts/stepTimeChart';
 import { Card, CardContent} from '@mui/material'
 
 export default function ComplianceDataLayout() {
@@ -12,63 +13,21 @@ export default function ComplianceDataLayout() {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <UserChart/>
+                        <TestCompletionChart/>
                     </CardContent>
                 </Card>
-            </div>
+             </div>
             <div>
                 <Card raised >
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <ReturnsChart/>
+                        Graph goes here
                     </CardContent>
                 </Card>
             </div>
             <div>
-                <Card raised >
-                    <CardContent
-                        sx={{height: '28vh'}}
-                    >
-                        <TimeChart/>
-                    </CardContent>
-                </Card>
-            </div>
-            <div>
-                <Card raised >
-                    <CardContent
-                        sx={{height: '28vh'}}
-                    >
-                        <InteractionsChart/>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={reviewsChartStyle}>
-                <Card raised >
-                    <CardContent
-                        sx={{height: '35vh'}}
-                    >
-                        <ReviewsChart/>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={issuesChartStyle}>
-                <Card raised >
-                    <CardContent
-                        sx={{height: '35vh'}}
-                    >
-                        <IssuesChart/>
-                    </CardContent>
-                </Card>
-            </div>
-            <div style={costChartStyle}>
-                <Card raised >
-                    <CardContent
-                        sx={{height: '46vh'}}
-                    >
-                        <CostChart/>
-                    </CardContent>
-                </Card>
+
             </div>
         </div>
     </div>
