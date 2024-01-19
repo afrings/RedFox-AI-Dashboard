@@ -42,23 +42,25 @@ const labels = ['Step 1', 'Step 1.1', 'Step 2', 'Step 3', 'Step 4', 'Step 5','St
 
 export default function StepTimeChart() {
 
-  const [data, setData] = useState({});
+  const [dataset, setData] = useState([]);
 
   var chart = {
     labels: labels,
-    datasets: [
-      {
-        label: 'User Reviews',
-        data: data[1],
-        backgroundColor: 'rgba(0, 153, 136, 0.7)',
-      },
-    ],
+    datasets: dataset,
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/");
+    const response = await fetch("http://localhost:5005/getStepTimeData");
     const data = await response.json();
-    setData([0, 0]);
+    let dataArray = [];
+    for (let i = 0; i < data.length; i++) {
+      dataArray.push({
+        label: 'time (seconds)',
+        data: data[i],
+        backgroundColor: 'rgba(0, 119, 187, 0.7)',
+      });
+    }
+    setData(dataArray);
   }, []);
 
   useEffect(() => {

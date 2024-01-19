@@ -29,7 +29,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'User Test Completion',
+      text: 'Barcode Scan Times',
     },
   },
 };
@@ -40,13 +40,13 @@ const generateLabels = (data) => {
 
 export default function BarcodeScanTimeChart() {
 
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   var chart = {
     labels: generateLabels(data),
     datasets: [
       {
-        label: 'Barcode Scan Times',
+        label: 'time (seconds)',
         data: data,
         backgroundColor: 'rgba(0, 119, 187, 0.7)',
       },
@@ -54,9 +54,9 @@ export default function BarcodeScanTimeChart() {
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/getComplianceScanTimeData");
+    const response = await fetch("http://localhost:5005/getScanTimeComplianceData");
     const data = await response.json();
-    setData(data.sort());
+    setData(data);
   }, []);
 
   useEffect(() => {

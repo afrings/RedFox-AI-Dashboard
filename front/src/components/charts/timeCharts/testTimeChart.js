@@ -29,21 +29,24 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'User Test Completion',
+      text: 'Test Times',
     },
   },
 };
 
-const labels = ['Tests Completed', 'Tests Failed', 'Bounces',];
+const generateLabels = (data) => {
+    return data?.map((x) => '');
+}
 
-export default function TestCompletionChart() {
+export default function TestTimeChart() {
 
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   var chart = {
-    labels: labels,
+    labels: generateLabels(data),
     datasets: [
       {
+        label: 'time (seconds)',
         data: data,
         backgroundColor: 'rgba(0, 119, 187, 0.7)',
       },
@@ -51,8 +54,9 @@ export default function TestCompletionChart() {
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/getCompletionComplianceData");
+    const response = await fetch("http://localhost:5005/getTestTimeData");
     const data = await response.json();
+    console.log(data);
     setData(data);
   }, []);
 

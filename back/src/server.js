@@ -37,72 +37,72 @@ app.get("/healthCheck", (req, res) => {
     res.status(200).send("Application Status: Healthy");
 });
 
-app.get("/createTable", async(req, res) => {
-    try {
-        const command = new CreateTableCommand({
-            TableName: process.env.DB_NAME,
-            AttributeDefinitions: [
-                {
-                    AttributeName: "DrinkName",
-                    AttributeType: "S",
-                },
-            ],
-            KeySchema: [
-                {
-                    AttributeName: "DrinkName",
-                    KeyType: "HASH",
-                },
-            ],
-            ProvisionedThroughput: {
-                ReadCapacityUnits: 1,
-                WriteCapacityUnits: 1,
-            },
-        });
+// app.get("/createTable", async(req, res) => {
+//     try {
+//         const command = new CreateTableCommand({
+//             TableName: process.env.DB_NAME,
+//             AttributeDefinitions: [
+//                 {
+//                     AttributeName: "DrinkName",
+//                     AttributeType: "S",
+//                 },
+//             ],
+//             KeySchema: [
+//                 {
+//                     AttributeName: "DrinkName",
+//                     KeyType: "HASH",
+//                 },
+//             ],
+//             ProvisionedThroughput: {
+//                 ReadCapacityUnits: 1,
+//                 WriteCapacityUnits: 1,
+//             },
+//         });
 
-        const response = await ddbClient.send(command);
-        res.status(200).send(response);
-    } catch(err) {
-        console.log(err);
-    }
-});
+//         const response = await ddbClient.send(command);
+//         res.status(200).send(response);
+//     } catch(err) {
+//         console.log(err);
+//     }
+// });
 
-app.get("/putItem", async(req, res) => {
-    try {
-        const command = new PutItemCommand({
-            TableName: process.env.DB_NAME,
-            Item: {
-                DrinkName: { S: "Mocha"},
-                Variants: { SS: ["White Chocolate", "Dark Chocolate", "Milk Chocolate"] },
-            },
-        });
+// app.get("/putItem", async(req, res) => {
+//     try {
+//         const command = new PutItemCommand({
+//             TableName: process.env.DB_NAME,
+//             Item: {
+//                 DrinkName: { S: "Mocha"},
+//                 Variants: { SS: ["White Chocolate", "Dark Chocolate", "Milk Chocolate"] },
+//             },
+//         });
 
-        const response = await ddbClient.send(command);
-        res.status(200).send(response);
-    } catch(err) {
-        console.log(err);
-    }
-});
+//         const response = await ddbClient.send(command);
+//         res.status(200).send(response);
+//     } catch(err) {
+//         console.log(err);
+//     }
+// });
 
-app.get("/getItem/:itemName", async(req, res) => {
-    try {
-        const command = new GetItemCommand({
-            TableName: process.env.DB_NAME,
-            Key: {
-                id: { S: req.params.itemName },
-                // attributes: { S: req.params.itemName },
-            },
-        });
+// app.get("/getItem/:itemName", async(req, res) => {
+//     try {
+//         const command = new GetItemCommand({
+//             TableName: process.env.DB_NAME,
+//             Key: {
+//                 id: { S: req.params.itemName },
+//                 // attributes: { S: req.params.itemName },
+//             },
+//         });
 
-        const response = await ddbClient.send(command);
-        if(! response.Item) return;
-        console.log(response)
-        res.status(200).send(unmarshall(response.Item));
-    } catch (err) {
-        console.log(err);
-    }
-});
+//         const response = await ddbClient.send(command);
+//         if(! response.Item) return;
+//         console.log(response)
+//         res.status(200).send(unmarshall(response.Item));
+//     } catch (err) {
+//         console.log(err);
+//     }
+// });
 
-app.get("/getComplianceCompletionData", async(req, res) => {
+app.get("/getCompletionComplianceData", async(req, res) => {
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -127,7 +127,7 @@ app.get("/getComplianceCompletionData", async(req, res) => {
     }
 });
 
-app.get("/getComplianceScanTimeData", async(req, res) => {
+app.get("/getScanTimeComplianceData", async(req, res) => {
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -139,15 +139,60 @@ app.get("/getComplianceScanTimeData", async(req, res) => {
 
         const response = await ddbClient.send(command);
         if(! response.Item) return;
-        // console.log(response)
         let data = unmarshall(response.Item).data;
         let responseData = [];
         for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < data[i].complianceData.barcodeScanTime.times.length; j++) {
-                responseData.push(data[i].complianceData.barcodeScanTime.times[j]);
-            }
+            responseData.push(data[i].complianceData.barcodeScanTime.averageTime);
+
         }
-        console.log(responseData)
+        res.status(200).send(responseData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/getStepTimeData", async(req, res) => {
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        let data = unmarshall(response.Item).data;
+        let responseData = [];
+        for (let i = 0; i < data.length; i++) {
+            responseData.push(data[i].timeData.stepTime);
+        }
+        console.log(responseData);
+        res.status(200).send(responseData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/getTestTimeData", async(req, res) => {
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        let data = unmarshall(response.Item).data;
+        let responseData = [];
+        for (let i = 0; i < data.length; i++) {
+            responseData.push(data[i].timeData.testTime.averageTime);
+        }
+        console.log(responseData);
         res.status(200).send(responseData);
     } catch (err) {
         console.log(err);

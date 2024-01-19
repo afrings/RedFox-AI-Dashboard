@@ -5,7 +5,7 @@ import DisplayUsersReturnRates from '../charts/pageLayouts/testLayouts/displayUs
 import DisplayTimeInteractions from '../charts/pageLayouts/testLayouts/displayTimeInteractions';
 import DisplayReviewsUserIssues from '../charts/pageLayouts/testLayouts/displayReviewsUserIssues';
 import DisplayCost from '../charts/pageLayouts/testLayouts/displayCost';
-import ComplianceDataLayout from '../charts/pageLayouts/complianceDataLayout';
+import Layout from '../charts/pageLayouts/Layout';
 import ResponsiveAppBar from '../interactives/appBar';
 import Verifier from '../services/awsJwtVerifier';
 
@@ -51,7 +51,7 @@ export default function Main() {
         if(verified){
             switch(display) {
                 case 'all':
-                    return <ComplianceDataLayout date={date}/>;
+                    return <Layout date={date}/>;
                 case 'time':
                     return <DisplayTimeInteractions/>;
                 case 'users':
