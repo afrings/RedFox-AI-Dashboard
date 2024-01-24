@@ -3,6 +3,8 @@ import TestCompletionChart from '../complianceCharts/testCompletionChart';
 import BarcodeScanTimeChart from '../complianceCharts/barcodeScanTimeChart';
 import StepTimeChart from '../timeCharts/stepTimeChart';
 import TestTimeChart from '../timeCharts/testTimeChart';
+import TroubleShootingRequestsChart from '../customerSupportCharts/troubleShootingRequestsChart';
+import PatientFeedbackChart from '../customerSupportCharts/patientFeedbackChart';
 import { Card, CardContent} from '@mui/material'
 
 export default function Layout({date}) {
@@ -46,6 +48,24 @@ export default function Layout({date}) {
                     </CardContent>
                 </Card>
             </div>
+            <div style={troubleShootingRequestsChartStyle}>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '39vh'}}
+                    >
+                        <TroubleShootingRequestsChart date={date}/>
+                    </CardContent>
+                </Card>
+            </div>
+            <div style={issuesChartStyle}>
+                <Card raised >
+                    <CardContent
+                        sx={{height: '39vh'}}
+                    >
+                        <PatientFeedbackChart date={date}/>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     </div>
     )
@@ -60,7 +80,7 @@ const chartsStyle = {
     gridAutoRows: '5vh',
 };
 
-const reviewsChartStyle = {
+const troubleShootingRequestsChartStyle = {
     gridColumn: '1',
     gridRow: '9/16',
     backgroundColor: 'white',

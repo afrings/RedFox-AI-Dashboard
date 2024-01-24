@@ -29,45 +29,34 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Test Times',
+      text: 'Trouble Shooting Requests',
     },
   },
 };
 
-const generateLabels = (data) => {
-    return data?.map((x) => '');
-}
+const labels = [`Which end of the swab do I open?`, `How far do I peel open the wrapper?`, `How hard do I rub my cheek with the swab?`, `How do I switch to the other cheek to collect?`, `How do I package the swab after I finish collecting?`, `How do I open the GenDry foil pouch`, `How do I seal the return pouch?`,]
 
-export default function TestTimeChart({date}) {
+export default function TroubleShootingRequestsChart({date}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
   const [testData, setTestData] = useState([]);
-  const [formData, setFormData] = useState([]);
 
   var chart = {
-    labels: generateLabels(testData),
+    labels: labels,
     datasets: [
       {
         label: 'time (seconds)',
         data: testData,
         backgroundColor: 'rgba(0, 119, 187, 0.7)',
       },
-      {
-        label: 'time (seconds)',
-        data: formData,
-        backgroundColor: 'rgba(0, 119, 187, 0.7)',
-      },
     ],
   };
 
   const getData = useCallback(async () => {
-    const testResponse = await fetch(`http://localhost:5005/getTestTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
-    const fromResponse = await fetch(`http://localhost:5005/getFormTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const testResponse = await fetch(`http://localhost:5005/getTroubleShootingRequestsData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const testData = await testResponse.json();
-    const formData = await fromResponse.json();
     setTestData(testData);
-    setFormData(formData);
   });
 
   useEffect(() => {

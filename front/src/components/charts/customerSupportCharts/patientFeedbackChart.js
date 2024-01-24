@@ -3,23 +3,19 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
-  Filler,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
-  Filler,
   Legend
 );
 
@@ -33,36 +29,36 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Time to Complete Step',
+      text: 'Patient Feedback Out Of 10',
     },
   },
 };
 
-const labels = ['Step 1', 'Step 1.1', 'Step 2', 'Step 3', 'Step 4', 'Step 5','Step 6','Step 7',];
+const generateLabels = (data) => {
+    return data?.map((x) => '');
+}
 
-export default function StepTimeChart({date}) {
+export default function PatientFeedbackChart({date}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
-  const [dataset, setData] = useState([]);
+  const [testData, setTestData] = useState([]);
 
   var chart = {
-    labels: labels,
-    datasets: dataset,
+    labels: generateLabels(testData),
+    datasets: [
+      {
+        label: 'time (seconds)',
+        data: testData,
+        backgroundColor: 'rgba(0, 119, 187, 0.7)',
+      },
+    ],
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch(`http://localhost:5005/getStepTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
-    const data = await response.json();
-    let dataArray = [];
-    for (let i = 0; i < data.length; i++) {
-      dataArray.push({
-        label: 'time (seconds)',
-        data: data[i],
-        backgroundColor: 'rgba(0, 119, 187, 0.7)',
-      });
-    }
-    setData(dataArray);
+    const testResponse = await fetch(`http://localhost:5005/getPatientFeedbackData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const testData = await testResponse.json();
+    setTestData(testData);
   });
 
   useEffect(() => {
@@ -70,5 +66,5 @@ export default function StepTimeChart({date}) {
       .catch(console.error);
   }, [date]);
 
-  return <Line options={options} data={chart} />;
+  return <Bar options={options} data={chart} />;
 }

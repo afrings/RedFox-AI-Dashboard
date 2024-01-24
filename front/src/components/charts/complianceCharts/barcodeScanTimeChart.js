@@ -38,7 +38,10 @@ const generateLabels = (data) => {
     return data?.map((x) => '');
 }
 
-export default function BarcodeScanTimeChart() {
+export default function BarcodeScanTimeChart({date}) {
+
+  var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
+  var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
   const [data, setData] = useState([]);
 
@@ -54,15 +57,15 @@ export default function BarcodeScanTimeChart() {
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch("http://localhost:5005/getScanTimeComplianceData");
+    const response = await fetch(`http://localhost:5005/getScanTimeComplianceData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const data = await response.json();
     setData(data);
-  }, []);
+  });
 
   useEffect(() => {
     getData()
       .catch(console.error);
-  }, []);
+  }, [date]);
 
   return <Bar options={options} data={chart} />;
 }

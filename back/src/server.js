@@ -102,7 +102,10 @@ app.get("/healthCheck", (req, res) => {
 //     }
 // });
 
-app.get("/getCompletionComplianceData", async(req, res) => {
+app.get("/getCompletionComplianceData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -116,10 +119,17 @@ app.get("/getCompletionComplianceData", async(req, res) => {
         if(! response.Item) return;
         var data = unmarshall(response.Item).data;
         let responseData = [0,0,0];
+        let entryDate;
         for (let i = 0; i < data.length; i++) {
-            responseData[0] += data[i].complianceData.testComplete;
-            responseData[1] += data[i].complianceData.testFailure;
-            responseData[2] += data[i].complianceData.testBounce;
+            entryDate = new Date(data[i].Date);
+            if ( startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date' ||
+                entryDate >= startDate && entryDate <= endDate
+            ){
+                responseData[0] += data[i].complianceData.testComplete;
+                responseData[1] += data[i].complianceData.testFailure;
+                responseData[2] += data[i].complianceData.testBounce;
+            }
         }
         res.status(200).send(responseData);
     } catch (err) {
@@ -127,7 +137,10 @@ app.get("/getCompletionComplianceData", async(req, res) => {
     }
 });
 
-app.get("/getScanTimeComplianceData", async(req, res) => {
+app.get("/getScanTimeComplianceData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -141,9 +154,15 @@ app.get("/getScanTimeComplianceData", async(req, res) => {
         if(! response.Item) return;
         let data = unmarshall(response.Item).data;
         let responseData = [];
+        let entryDate;
         for (let i = 0; i < data.length; i++) {
-            responseData.push(data[i].complianceData.barcodeScanTime.averageTime);
-
+            entryDate = new Date(data[i].Date);
+            if ( startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date' ||
+                entryDate >= startDate && entryDate <= endDate
+            ){
+                responseData.push(data[i].complianceData.barcodeScanTime.averageTime);
+            }
         }
         res.status(200).send(responseData);
     } catch (err) {
@@ -151,7 +170,10 @@ app.get("/getScanTimeComplianceData", async(req, res) => {
     }
 });
 
-app.get("/getStepTimeData", async(req, res) => {
+app.get("/getStepTimeData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -165,17 +187,26 @@ app.get("/getStepTimeData", async(req, res) => {
         if(! response.Item) return;
         let data = unmarshall(response.Item).data;
         let responseData = [];
+        let entryDate;
         for (let i = 0; i < data.length; i++) {
-            responseData.push(data[i].timeData.stepTime);
+            entryDate = new Date(data[i].Date);
+            if ( startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date' ||
+                entryDate >= startDate && entryDate <= endDate
+            ){
+                responseData.push(data[i].timeData.stepTime);
+            }
         }
-        console.log(responseData);
         res.status(200).send(responseData);
     } catch (err) {
         console.log(err);
     }
 });
 
-app.get("/getTestTimeData", async(req, res) => {
+app.get("/getTestTimeData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
     try {
         const command = new GetItemCommand({
             TableName: process.env.DB_NAME,
@@ -189,10 +220,121 @@ app.get("/getTestTimeData", async(req, res) => {
         if(! response.Item) return;
         let data = unmarshall(response.Item).data;
         let responseData = [];
+        let entryDate;
         for (let i = 0; i < data.length; i++) {
-            responseData.push(data[i].timeData.testTime.averageTime);
+            entryDate = new Date(data[i].Date);
+            if ( startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date' || 
+                entryDate >= startDate && entryDate <= endDate
+            ){
+                responseData.push(data[i].timeData.testTime.averageTime);
+            }
         }
-        console.log(responseData);
+        res.status(200).send(responseData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/getFormTimeData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        let data = unmarshall(response.Item).data;
+        let responseData = [];
+        let entryDate;
+        for (let i = 0; i < data.length; i++) {
+            entryDate = new Date(data[i].Date);
+            if ( startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date' ||
+                entryDate >= startDate && entryDate <= endDate
+            ){
+                responseData.push(data[i].timeData.formTime.averageTime);
+            }
+        }
+        res.status(200).send(responseData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/getTroubleShootingRequestsData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        let data = unmarshall(response.Item).data;
+        let responseData = [0,0,0,0,0,0,0];
+        let entryDate;
+        for (let i = 0; i < data.length; i++) {
+            entryDate = new Date(data[i].Date);
+            if ( (startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date') ||
+                entryDate >= startDate && entryDate <= endDate
+             ){
+                responseData[0] += data[i].customerSupportData.troubleShootingRequests[0];
+                responseData[1] += data[i].customerSupportData.troubleShootingRequests[1];
+                responseData[2] += data[i].customerSupportData.troubleShootingRequests[2];
+                responseData[3] += data[i].customerSupportData.troubleShootingRequests[3];
+                responseData[4] += data[i].customerSupportData.troubleShootingRequests[4];
+                responseData[5] += data[i].customerSupportData.troubleShootingRequests[5];
+                responseData[6] += data[i].customerSupportData.troubleShootingRequests[6];
+            }
+        }
+        res.status(200).send(responseData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get("/getPatientFeedbackData/:startDate/:endDate", async(req, res) => {
+    let startDate = new Date(decodeURIComponent(req.params.startDate));
+    let endDate = new Date(decodeURIComponent(req.params.endDate));
+
+    try {
+        const command = new GetItemCommand({
+            TableName: process.env.DB_NAME,
+            Key: {
+                id: { S: "Gentueri" },
+                customer: { S: "Gentueri" },
+            },
+        });
+
+        const response = await ddbClient.send(command);
+        if(! response.Item) return;
+        let data = unmarshall(response.Item).data;
+        let responseData = [];
+        let entryDate;
+        for (let i = 0; i < data.length; i++) {
+            entryDate = new Date(data[i].Date);
+            if ( (startDate.toString() === 'Invalid Date' || 
+                endDate.toString() === 'Invalid Date') ||
+                entryDate >= startDate && entryDate <= endDate
+             ){
+                responseData.push(data[i].customerSupportData.patientFeedback[0]);
+            }
+        }
         res.status(200).send(responseData);
     } catch (err) {
         console.log(err);
