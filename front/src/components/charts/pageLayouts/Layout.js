@@ -57,7 +57,7 @@ export default function Layout({date}) {
                     </CardContent>
                 </Card>
             </div>
-            <div style={issuesChartStyle}>
+            {/* <div style={issuesChartStyle}>
                 <Card raised >
                     <CardContent
                         sx={{height: '39vh'}}
@@ -65,7 +65,7 @@ export default function Layout({date}) {
                         <PatientFeedbackChart date={date}/>
                     </CardContent>
                 </Card>
-            </div>
+            </div> */}
         </div>
     </div>
     )

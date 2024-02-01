@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import DropDown from '../interactives/selectPageDropDown';
+import DownloadXML from '../interactives/download';
 import DatePicker from '../interactives/datePicker';
 import DisplayUsersReturnRates from '../charts/pageLayouts/testLayouts/displayUsersReturnRates';
 import DisplayTimeInteractions from '../charts/pageLayouts/testLayouts/displayTimeInteractions';
@@ -71,7 +72,8 @@ export default function Main() {
                 <div>
                     <ResponsiveAppBar/>
                     <div style={{zIndex:'200'}}>
-                        <DropDown changeDisplay={changeDisplay}/>
+                        {/* <DropDown changeDisplay={changeDisplay}/> */}
+                        <DownloadXML/>
                         <DatePicker changeDate={changeDate} state={date}/>
                     </div>
                     <div style={graphStyle}>
