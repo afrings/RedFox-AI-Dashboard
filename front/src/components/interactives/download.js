@@ -16,7 +16,7 @@ const download = async() => {
     URL.revokeObjectURL(href);
 }
 
-const DownloadXML = () => {
+const DownloadXLSX = () => {
     return (
         <div style={DropDownStyle}>
             <Button variant='contained' sx={dateDropDownButtonStyle} disableElevation onClick={download}>Download As XLSX</Button>
@@ -37,4 +37,4 @@ const dateDropDownButtonStyle = {
     }
 }
 
-export default DownloadXML;
+export default DownloadXLSX;
