@@ -169,6 +169,7 @@ export default function Login() {
                 navigate('/main');
             }
         } catch(error) {
+            console.log('caught error')
             if (error.name === 'UserAlreadyAuthenticatedException') {
                 console.log('ReLogIn')
                 try {
