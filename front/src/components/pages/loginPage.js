@@ -177,10 +177,10 @@ export default function Login() {
                     login(username, password, tempPassword);
                 } catch(error) {
                     if (error.name === 'NotAuthorizedException') {
-                        console.log('caught not authorized');
                         setLoginStage('incorrect username or password');
                     } else {
-                        console.log(error)
+                        console.log("error");
+                        console.log("error");
                     }
                 }
             } else if (error.name === 'NotAuthorizedException') {
