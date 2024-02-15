@@ -170,11 +170,13 @@ export default function Login() {
             }
         } catch(error) {
             if (error.name === 'UserAlreadyAuthenticatedException') {
+                console.log('ReLogIn')
                 try {
                     await signOut();
                     login(username, password, tempPassword);
                 } catch(error) {
                     if (error.name === 'NotAuthorizedException') {
+                        console.log('caught not authorized');
                         setLoginStage('incorrect username or password');
                     } else {
                         console.log(error)
