@@ -174,11 +174,13 @@ export default function Login() {
                     await signOut();
                     login(username, password, tempPassword);
                 } catch(error) {
-                    console.log(error)
+                    if (error.name === 'NotAuthorizedException') {
+                        setLoginStage('incorrect username or password');
+                    } else {
+                        console.log(error)
+                    }
                 }
-                
             } else if (error.name === 'NotAuthorizedException') {
-                console.log('made it here');
                 setLoginStage('incorrect username or password');
             } else {
                 console.log(error.name);
