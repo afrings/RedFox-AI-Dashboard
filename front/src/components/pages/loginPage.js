@@ -144,6 +144,7 @@ export default function Login() {
         try{
             console.log(`Username: ${username} Password: ${state.useSavedPassword ? state.savedPassword : password}`);
             const { isSignedIn, nextStep } = await signIn({ username: username, password: state.useSavedPassword ? state.savedPassword : password });
+            console.log(`here ${12 + 1}`);
             var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
             console.log(nextStep)
             switch (nextStep.signInStep) {
@@ -169,9 +170,8 @@ export default function Login() {
                 navigate('/main');
             }
         } catch(error) {
-            console.log('caught error')
+            console.log(`error name ${error.name}`);
             if (error.name === 'UserAlreadyAuthenticatedException') {
-                console.log('ReLogIn')
                 try {
                     await signOut();
                     login(username, password, tempPassword);
@@ -179,8 +179,7 @@ export default function Login() {
                     if (error.name === 'NotAuthorizedException') {
                         setLoginStage('incorrect username or password');
                     } else {
-                        console.log("error");
-                        console.log("error");
+                        console.log(error)
                     }
                 }
             } else if (error.name === 'NotAuthorizedException') {
