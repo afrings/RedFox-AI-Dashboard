@@ -141,9 +141,8 @@ export default function Login() {
     }
 
     const login = async(username, password, tempPassword) => {
-        console.log('here')
         try{
-            console.log(`Username: ${username} Password: ${state.useSavedPassword ? state.savedPassword : password}`);
+            console.log(`Usernames: ${username} Passwords: ${state.useSavedPassword ? state.savedPassword : password}`);
             const { isSignedIn, nextStep } = await signIn({ username: username, password: state.useSavedPassword ? state.savedPassword : password });
             var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
             console.log(nextStep)
