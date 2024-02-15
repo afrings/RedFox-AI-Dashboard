@@ -178,6 +178,7 @@ export default function Login() {
                 }
                 
             } else if (error.name === 'NotAuthorizedException') {
+                console.log('made it here');
                 setLoginStage('incorrect username or password');
             } else {
                 console.log(error.name);
