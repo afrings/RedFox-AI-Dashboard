@@ -1,4 +1,81 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signIn, signOut, confirmSignIn, fetchAuthSession } from 'aws-amplify/auth';
+import { Box, Card, CardContent, CardMedia} from '@mui/material';
+import QRCode from 'react-qr-code';
+// import ReCAPTCHA from 'react-google-recaptcha';
+import isPasswordValid from '../services/isPasswordValid';
+import imageUrl from '../assets/Secondary-CMYK.png'
 
+export default function Login() {
+
+    const navigate = useNavigate();
+    const [state, setState] = useState({
+        username: 'austin.frings@redfox-ai.com', 
+        password: 'Pass12,.', 
+        newPassword: '', 
+        useSavedPassword: false, 
+        savedPassword: '',
+    });
+    const [loginStage, setLoginStage] = useState('login');
+    const [passwordWarning, setPasswordWarning] = useState({passwordWarningMessage: ''});
+    const [mfa, setMfa] = useState({mfaCode: '', mfaUri: ''});
+
+    // custom event and promise to pass totp to the login function
+    const event = new Event('totp');
+    var totpPromise = new Promise((resolve) => {
+        document.addEventListener('totp', (e) => {
+            // get totp directly from element rather than state object bc state will not be updated immediately
+            resolve(document.getElementById('mfaInput').value);
+        });
+    });
+    
+    // give value to the button once the correct part of the login stage has been reached
+    var button;
+    useEffect(() => {
+        if (loginStage === 'mfaSetup' || loginStage === 'mfa'){
+            button = document.getElementById('button');
+            if (button) {
+                // button click event triggers custom event declared above, resolving the promise in
+                // CONTINUE_SIGN_IN_WITH_TOTP_SETUP or CONFIRM_SIGN_IN_WITH_TOTP_CODE
+                button.addEventListener('click', function() {
+                    document.dispatchEvent(event);
+                });
+            }
+        }
+    });
+
+    const handleChangeMfaCode = (event) => {
+        setMfa((prevState) => ({...prevState, mfaCode: event.target.value,}));
+    };
+
+    const handleChangeUsername = (event) => {
+        setState((prevState) => ({...prevState, username: event.target.value,}));
+    };
+
+    const handleChangePassword = (event) => {
+        setState((prevState) => ({...prevState, password: event.target.value,}));
+        if (loginStage === 'requestNewPassword') checkPasswords(event.target.value, state.newPassword);
+    };
+
+    const handleChangeNewPassword = (event) => {
+        setState((prevState) => ({...prevState, newPassword: event.target.value}));
+        if (loginStage === 'requestNewPassword') checkPasswords(state.password, event.target.value);
+    }
+
+    const checkPasswords = (password, newPassword) => {
+        if (password !== newPassword && password.length > 0 && newPassword.length > 0) {
+            setPasswordWarning({showPasswordWarning: true, passwordWarningMessage: "Passwords Do Not Match"});
+        } else if (!isPasswordValid(password) && password.length > 0 || !isPasswordValid(newPassword) && newPassword.length > 0){
+            setPasswordWarning({showPasswordWarning: true, passwordWarningMessage: "Passwords Must Have A Minimum of 8 Characters, Contain at least 1 Number, 1 Special Character, 1 Uppercase Letter, and 1 Lowercase Letter"});
+        } else {
+            setPasswordWarning({showPasswordWarning: true, passwordWarningMessage: ''});
+        }
+    }
+
+    const onChange = (value) => {
+        console.log('Captcha value: ', value);
+    }
 
     const signInWithNewPassword = async(password) => {
         // store the temporary password to be used automatically with next signIn
