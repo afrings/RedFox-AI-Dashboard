@@ -21,7 +21,7 @@ export default function Login() {
     const [passwordWarning, setPasswordWarning] = useState({passwordWarningMessage: ''});
     const [mfa, setMfa] = useState({mfaCode: '', mfaUri: ''});
 
-    // custom event and promise to pass totp to the login function
+    // custom event and promise used to pass totp to the login function
     const event = new Event('totp');
     var totpPromise = new Promise((resolve) => {
         document.addEventListener('totp', (e) => {
@@ -163,12 +163,19 @@ export default function Login() {
                     await signInWithTotpCode();
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
                     break;
+
+                case 'CONFIRM_SIGN_IN_WITH_SMS_CODE' :
+                    setLoginStage('mfa');
+                    await signInWithTotpCode();
+                    var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
+                    break;
             }
             if (accessToken) {
                 sessionStorage.setItem('jwt', accessToken.toString());
                 navigate('/main');
             }
         } catch(error) {
+            console.log(error)
             if (error.name === 'UserAlreadyAuthenticatedException') {
                 try {
                     await signOut();
