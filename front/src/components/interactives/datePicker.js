@@ -7,16 +7,6 @@ import Button from '@mui/material/Button';
 function DatePicker({changeDate, state}) {
     const [visible, setVisible] = useState(false);
 
-    // const 
-
-    // const [state, setState] = useState([
-    //     {
-    //       startDate: new Date(),
-    //       endDate: null,
-    //       key: 'selection'
-    //     }
-    // ]);
-
     return(
         <div style={DateRangeStyle}>
             <Button variant='contained' disableElevation sx={DateRangeButtonStyle} onClick={() => setVisible(!visible)}>Change Dates</Button>
