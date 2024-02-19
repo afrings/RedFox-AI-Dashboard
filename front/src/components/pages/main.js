@@ -6,7 +6,7 @@ import DisplayUsersReturnRates from '../charts/pageLayouts/testLayouts/displayUs
 import DisplayTimeInteractions from '../charts/pageLayouts/testLayouts/displayTimeInteractions';
 import DisplayReviewsUserIssues from '../charts/pageLayouts/testLayouts/displayReviewsUserIssues';
 import DisplayCost from '../charts/pageLayouts/testLayouts/displayCost';
-import Layout from '../charts/pageLayouts/Layout';
+import Layout from '../charts/pageLayouts/layout';
 import ResponsiveAppBar from '../interactives/appBar';
 import Verifier from '../services/awsJwtVerifier';
 
