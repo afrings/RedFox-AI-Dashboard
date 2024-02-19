@@ -2,11 +2,11 @@ import { useState, useCallback, useEffect } from 'react';
 // import DropDown from '../interactives/selectPageDropDown';
 import DownloadXLSX from '../interactives/download';
 import DatePicker from '../interactives/datePicker';
-import DisplayUsersReturnRates from '../charts/pageLayouts/testLayouts/displayUsersReturnRates';
-import DisplayTimeInteractions from '../charts/pageLayouts/testLayouts/displayTimeInteractions';
-import DisplayReviewsUserIssues from '../charts/pageLayouts/testLayouts/displayReviewsUserIssues';
-import DisplayCost from '../charts/pageLayouts/testLayouts/displayCost';
-import Layout from '../charts/pageLayouts/layout';
+import DisplayUsersReturnRates from '../Charts/pageLayouts/testLayouts/displayUsersReturnRates';
+import DisplayTimeInteractions from '../Charts/pageLayouts/testLayouts/displayTimeInteractions';
+import DisplayReviewsUserIssues from '../Charts/pageLayouts/testLayouts/displayReviewsUserIssues';
+import DisplayCost from '../Charts/pageLayouts/testLayouts/displayCost';
+import Layout from '../Charts/pageLayouts/layout';
 import ResponsiveAppBar from '../interactives/appBar';
 import Verifier from '../services/awsJwtVerifier';
 
