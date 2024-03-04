@@ -10,12 +10,7 @@ import * as XLSX from 'xlsx';
 dotenv.config({ path: '.env' });
 
 const app = express();
-const corsOptions = {
-    origin: 'http://localhost:3001',
-    credentials: true,
-    optionSuccessStatus:200,
-}
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
