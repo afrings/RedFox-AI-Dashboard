@@ -11,8 +11,8 @@ export default function Login() {
 
     const navigate = useNavigate();
     const [state, setState] = useState({
-        username: 'austin.frings@redfox-ai.com', 
-        password: 'Pass12,.', 
+        username: '', 
+        password: '', 
         newPassword: '', 
         useSavedPassword: false, 
         savedPassword: '',
