@@ -7,7 +7,7 @@ import TroubleShootingRequestsChart from '../customerSupportCharts/troubleShooti
 import PatientFeedbackChart from '../customerSupportCharts/patientFeedbackChart';
 import { Card, CardContent} from '@mui/material'
 
-export default function Layout({date}) {
+export default function Layout({date, apiUrl}) {
     
     return (
     <div style={{position:'relative', display:'block', marginLeft:'1vw', marginRight:'1vw',}}>    
@@ -17,7 +17,7 @@ export default function Layout({date}) {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <TestCompletionChart date={date}/>
+                        <TestCompletionChart date={date} apiUrl={apiUrl}/>
                     </CardContent>
                 </Card>
              </div>
@@ -26,7 +26,7 @@ export default function Layout({date}) {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <BarcodeScanTimeChart date={date}/>
+                        <BarcodeScanTimeChart date={date} apiUrl={apiUrl}/>
                     </CardContent>
                 </Card>
             </div>
@@ -35,7 +35,7 @@ export default function Layout({date}) {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <StepTimeChart date={date}/>
+                        <StepTimeChart date={date} apiUrl={apiUrl}/>
                     </CardContent>
                 </Card>
             </div>
@@ -44,7 +44,7 @@ export default function Layout({date}) {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <TestTimeChart date={date}/>
+                        <TestTimeChart date={date} apiUrl={apiUrl}/>
                     </CardContent>
                 </Card>
             </div>
@@ -53,7 +53,7 @@ export default function Layout({date}) {
                     <CardContent
                         sx={{height: '39vh'}}
                     >
-                        <TroubleShootingRequestsChart date={date}/>
+                        <TroubleShootingRequestsChart date={date} apiUrl={apiUrl}/>
                     </CardContent>
                 </Card>
             </div>

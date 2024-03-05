@@ -38,7 +38,7 @@ const generateLabels = (data) => {
     return data?.map((x) => '');
 }
 
-export default function PatientFeedbackChart({date}) {
+export default function PatientFeedbackChart({date, apiUrl}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
@@ -56,7 +56,7 @@ export default function PatientFeedbackChart({date}) {
   };
 
   const getData = useCallback(async () => {
-    const testResponse = await fetch(`http://localhost:5005/getPatientFeedbackData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const testResponse = await fetch(`${apiUrl}/getPatientFeedbackData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const testData = await testResponse.json();
     setTestData(testData);
   });

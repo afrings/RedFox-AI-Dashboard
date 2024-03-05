@@ -10,7 +10,7 @@ import Layout from '../Charts/pageLayouts/layout';
 import ResponsiveAppBar from '../interactives/appBar';
 import Verifier from '../services/awsJwtVerifier';
 
-export default function Main() {
+export default function Main({apiUrl}) {
     const [display, setDisplay] = useState('all');
     const [verified, setVerified] = useState(false);
     const [date, setDate] = useState([
@@ -52,7 +52,7 @@ export default function Main() {
         if(verified){
             switch(display) {
                 case 'all':
-                    return <Layout date={date}/>;
+                    return <Layout date={date} apiUrl={apiUrl}/>;
                 case 'time':
                     return <DisplayTimeInteractions/>;
                 case 'users':

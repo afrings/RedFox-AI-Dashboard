@@ -38,7 +38,7 @@ const generateLabels = (data) => {
     return data?.map((x) => '');
 }
 
-export default function TestTimeChart({date}) {
+export default function TestTimeChart({date, apiUrl}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
@@ -62,8 +62,8 @@ export default function TestTimeChart({date}) {
   };
 
   const getData = useCallback(async () => {
-    const testResponse = await fetch(`http://localhost:5005/getTestTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
-    const fromResponse = await fetch(`http://localhost:5005/getFormTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const testResponse = await fetch(`${apiUrl}/getTestTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const fromResponse = await fetch(`${apiUrl}/getFormTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const testData = await testResponse.json();
     const formData = await fromResponse.json();
     setTestData(testData);

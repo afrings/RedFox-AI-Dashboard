@@ -36,7 +36,7 @@ export const options = {
 
 const labels = [`Which end of the swab do I open?`, `How far do I peel open the wrapper?`, `How hard do I rub my cheek with the swab?`, `How do I switch to the other cheek to collect?`, `How do I package the swab after I finish collecting?`, `How do I open the GenDry foil pouch`, `How do I seal the return pouch?`,]
 
-export default function TroubleShootingRequestsChart({date}) {
+export default function TroubleShootingRequestsChart({date, apiUrl}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
@@ -54,7 +54,7 @@ export default function TroubleShootingRequestsChart({date}) {
   };
 
   const getData = useCallback(async () => {
-    const testResponse = await fetch(`http://localhost:5005/getTroubleShootingRequestsData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const testResponse = await fetch(`${apiUrl}/getTroubleShootingRequestsData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const testData = await testResponse.json();
     setTestData(testData);
   });

@@ -36,7 +36,7 @@ export const options = {
 
 const labels = ['Tests Completed', 'Tests Failed', 'Bounces',];
 
-export default function TestCompletionChart({date}) {
+export default function TestCompletionChart({date, apiUrl}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
@@ -53,7 +53,7 @@ export default function TestCompletionChart({date}) {
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch(`http://localhost:5005/getCompletionComplianceData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const response = await fetch(`${apiUrl}/getCompletionComplianceData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const data = await response.json();
     setData(data);
   });

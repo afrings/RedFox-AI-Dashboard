@@ -40,7 +40,7 @@ export const options = {
 
 const labels = ['Step 1', 'Step 1.1', 'Step 2', 'Step 3', 'Step 4', 'Step 5','Step 6','Step 7',];
 
-export default function StepTimeChart({date}) {
+export default function StepTimeChart({date, apiUrl}) {
   var startDate = date[0].startDate ? `${date[0].startDate?.getMonth()+1}/${date[0].startDate?.getDate()}/${date[0].startDate?.getFullYear()}` : null;
   var endDate = date[0].endDate ? `${date[0].endDate?.getMonth()+1}/${date[0].endDate?.getDate()}/${date[0].endDate?.getFullYear()}` : null;
 
@@ -52,7 +52,7 @@ export default function StepTimeChart({date}) {
   };
 
   const getData = useCallback(async () => {
-    const response = await fetch(`http://localhost:5005/getStepTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
+    const response = await fetch(`${apiUrl}/getStepTimeData/${encodeURIComponent(startDate)}/${encodeURIComponent(endDate)}`);
     const data = await response.json();
     let dataArray = [];
     for (let i = 0; i < data.length; i++) {

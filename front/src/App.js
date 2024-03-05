@@ -6,6 +6,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs' // required for the date picker interactive
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+const apiUrl = "https://visual-dashboard.redfox-api.com";
+
 function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -13,7 +15,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<Login />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
-                <Route path='/main' element={<Main />} />
+                <Route path='/main' element={<Main apiUrl={apiUrl} />} />
             </Routes>
         </Router>
     </LocalizationProvider>
