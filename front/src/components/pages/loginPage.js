@@ -164,7 +164,6 @@ export default function Login() {
                 totp = await totpPromise;
             }
         }
-        
     }
 
     const login = async(username, password, tempPassword) => {
@@ -282,7 +281,7 @@ export default function Login() {
                 <div style={pageFormat}>
                     {mfa.mfaMethod === 'TOTP' ? 
                     <span style={instructionsStyle}><b>Check your Authenticator App and enter your TOTP code below</b></span>
-                    : <span style={instructionsStyle}><b>Check phone and enter your SMS code below</b></span>}
+                    : <span style={instructionsStyle}><b>Check your phone and enter your SMS code below</b></span>}
                     <input id='mfaInput' autoComplete='off' placeholder={'Multi-Factor Authentication Code'} value={mfa.mfaCode} onChange={handleChangeMfaCode} style={mfaCodeInputStyle}></input>
                     <button id='button' style={loginButtonStyle} onClick={null}> Submit MFA </button>
                 </div>
@@ -302,7 +301,7 @@ export default function Login() {
                 <div style={pageFormat}>
                     <span style={instructionsStyle}><b>Authenticator Apps Offer Better Security</b></span>
                     <button style={loginButtonStyle} onClick={switchToTotp}> Switch to Authenticator App </button>
-                    <button style={loginButtonStyle} onClick={null}> Continue with SMS </button>
+                    <button style={loginButtonStyle} onClick={(e) => navigate('/main')}> Continue with SMS </button>
                 </div>
                 : null}
             </CardContent>
