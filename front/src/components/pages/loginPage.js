@@ -19,7 +19,7 @@ export default function Login() {
     });
     const [loginStage, setLoginStage] = useState('login');
     const [passwordWarning, setPasswordWarning] = useState({passwordWarningMessage: ''});
-    const [mfa, setMfa] = useState({mfaCode: '', mfaUri: ''});
+    const [mfa, setMfa] = useState({mfaCode: '', mfaUri: '', mfaMethod: ''});
 
     // custom event and promise used to pass totp to the login function
     const event = new Event('totp');
@@ -152,7 +152,7 @@ export default function Login() {
                 console.log('try');
                 await verifyTOTPSetup({ code: totp});
                 await updateMFAPreference({ totp:'PREFERRED', sms:'ENABLED' });
-                setLoginStage('login');
+                navigate('/main');
                 needTotp = false;
             } catch (e) {
                 console.log(e);
@@ -187,6 +187,7 @@ export default function Login() {
 
                 case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
                     setLoginStage('mfa');
+                    setMfa((prevState) => ({...prevState, mfaCode: '', mfaMethod: 'TOTP'}));
                     await signInWithTotpCode();
                     await updateMFAPreference({totp:'PREFERRED'});
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
@@ -194,12 +195,9 @@ export default function Login() {
 
                 case 'CONFIRM_SIGN_IN_WITH_SMS_CODE' :
                     setLoginStage('mfa');
+                    setMfa((prevState) => ({...prevState, mfaCode: '', mfaMethod: 'SMS'}));
                     await signInWithTotpCode();
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
-                    break;
-
-                case 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION' :
-                    
                     break;
             }
             if (accessToken) {
@@ -282,6 +280,9 @@ export default function Login() {
                 {loginStage === 'mfa' ? 
                 // request totp
                 <div style={pageFormat}>
+                    {mfa.mfaMethod === 'TOTP' ? 
+                    <span style={instructionsStyle}><b>Check your Authenticator App and enter your TOTP code below</b></span>
+                    : <span style={instructionsStyle}><b>Check phone and enter your SMS code below</b></span>}
                     <input id='mfaInput' autoComplete='off' placeholder={'Multi-Factor Authentication Code'} value={mfa.mfaCode} onChange={handleChangeMfaCode} style={mfaCodeInputStyle}></input>
                     <button id='button' style={loginButtonStyle} onClick={null}> Submit MFA </button>
                 </div>
@@ -321,6 +322,7 @@ const instructionsStyle = {
     textAlign: 'center',
     fontSize: '20px',
     width: '400px',
+    paddingBottom: '5px',
 }
 
 const inputUsernameStyle = {
@@ -349,7 +351,6 @@ const mfaQrCodeStyle = {
     textAlign: 'center',
     width: 'auto',
     height: 'auto',
-    paddingTop: '5px',
 };
 
 const mfaCodeInputStyle = {
