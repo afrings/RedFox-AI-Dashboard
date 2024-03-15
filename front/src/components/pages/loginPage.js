@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signIn, signOut, confirmSignIn, fetchAuthSession } from 'aws-amplify/auth';
+import { signIn, signOut, confirmSignIn, fetchAuthSession, setUpTOTP, verifyTOTPSetup, updateMFAPreference, fetchMFAPreference } from 'aws-amplify/auth';
 import { Box, Card, CardContent, CardMedia} from '@mui/material';
 import QRCode from 'react-qr-code';
 // import ReCAPTCHA from 'react-google-recaptcha';
@@ -43,7 +43,7 @@ export default function Login() {
                 });
             }
         }
-    });
+    },[loginStage]);
 
     const handleChangeMfaCode = (event) => {
         setMfa((prevState) => ({...prevState, mfaCode: event.target.value,}));
@@ -97,8 +97,7 @@ export default function Login() {
 
     const signInWithTotpSetup = async(nextStep) => {
         const totpSetupDetails = nextStep.totpSetupDetails;
-        const appName = 'RedFox AI Dashboard';
-        const setupUri = totpSetupDetails.getSetupUri(appName);
+        const setupUri = totpSetupDetails.getSetupUri('RedFox AI Dashboard');
         setMfa((prevState) => ({...prevState, mfaUri: setupUri.href,}));
 
         setLoginStage('mfaSetup');
@@ -108,7 +107,7 @@ export default function Login() {
         var needTotp = true;
         while (needTotp) {
             try {
-                var response = await confirmSignIn({challengeResponse: totp});
+                await confirmSignIn({challengeResponse: totp});
                 needTotp = false;
             } catch (e) {
                 totpPromise = new Promise((resolve) => {
@@ -127,7 +126,7 @@ export default function Login() {
         var needTotp = true;
         while (needTotp) {
             try {
-                var response = await confirmSignIn({challengeResponse: totp});
+                await confirmSignIn({challengeResponse: totp});
                 needTotp = false;
             } catch (e) {
                 totpPromise = new Promise((resolve) => {
@@ -140,9 +139,37 @@ export default function Login() {
         }
     }
 
+    const switchToTotp = async() => {
+        setMfa((prevState) => ({...prevState, mfaCode: ''}))
+        const totpSetupDetails = await setUpTOTP();
+        setMfa((prevState) => ({...prevState, mfaUri: totpSetupDetails.getSetupUri('RedFox AI Dashboard').href,}));
+        setLoginStage('mfaSetup');
+        var totp = await totpPromise;
+        console.log('TOTP RESPONSE: ', totp);
+        var needTotp = true;
+        while (needTotp) {
+            try {
+                console.log('try');
+                await verifyTOTPSetup({ code: totp});
+                await updateMFAPreference({ totp:'PREFERRED', sms:'ENABLED' });
+                setLoginStage('login');
+                needTotp = false;
+            } catch (e) {
+                console.log(e);
+                totpPromise = new Promise((resolve) => {
+                    document.addEventListener('totp', (e) => {
+                        resolve(document.getElementById('mfaInput').value);
+                    });
+                });
+                totp = await totpPromise;
+            }
+        }
+        
+    }
+
     const login = async(username, password, tempPassword) => {
         try{
-            console.log(`Usernames: ${username} Passwords: ${state.useSavedPassword ? state.savedPassword : password}`);
+            console.log(`Username: ${username} Passwords: ${state.useSavedPassword ? state.savedPassword : password}`);
             const { isSignedIn, nextStep } = await signIn({ username: username, password: state.useSavedPassword ? state.savedPassword : password });
             var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
             console.log(nextStep)
@@ -161,6 +188,7 @@ export default function Login() {
                 case 'CONFIRM_SIGN_IN_WITH_TOTP_CODE':
                     setLoginStage('mfa');
                     await signInWithTotpCode();
+                    await updateMFAPreference({totp:'PREFERRED'});
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
                     break;
 
@@ -169,10 +197,19 @@ export default function Login() {
                     await signInWithTotpCode();
                     var { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
                     break;
+
+                case 'CONTINUE_SIGN_IN_WITH_MFA_SELECTION' :
+                    
+                    break;
             }
             if (accessToken) {
                 sessionStorage.setItem('jwt', accessToken.toString());
-                navigate('/main');
+                const mfaPreference = await fetchMFAPreference();
+                if(mfaPreference.preferred === undefined) {
+                    setLoginStage('changeToTotp');
+                } else {
+                    navigate('/main');
+                }
             }
         } catch(error) {
             console.log(error)
@@ -215,7 +252,7 @@ export default function Login() {
                 // normal login
                 <div style={pageFormat}>
                     <input placeholder={"Username"} value={state.username} onChange={handleChangeUsername} style={inputUsernameStyle}></input>
-                    <input placeholder={"Password"} value={state.password} onChange={handleChangePassword} /*type='password'*/ style={inputPasswordStyle}></input>
+                    <input placeholder={"Password"} value={state.password} onChange={handleChangePassword} type='password' style={inputPasswordStyle}></input>
                     <button style={loginButtonStyle} onClick={(e) => login(state.username, state.password, state.newPassword)}> Login </button>
                 </div>
                 : null}
@@ -223,7 +260,7 @@ export default function Login() {
                 {loginStage === 'requestNewPassword' ? 
                 // request new password
                 <div style={pageFormat}>
-                    <div style={passwordWarningStyle}> {passwordWarning.passwordWarningMessage} </div>
+                    <div style={instructionsStyle}> {passwordWarning.passwordWarningMessage} </div>
                     <input placeholder={'New Password'} value={state.password} onChange={handleChangePassword} type='password' style={inputPasswordStyle}></input>
                     <input placeholder={'Confirm New Password'} value={state.newPassword} onChange={handleChangeNewPassword} type='password' style={inputNewPasswordStyle}></input>
                     <button style={loginButtonStyle} onClick={(e) => login(state.username, state.password, state.newPassword)}> Set New Password </button>
@@ -233,9 +270,12 @@ export default function Login() {
                 {loginStage === 'mfaSetup' ? 
                 // request totp
                 <div style={pageFormat}>
-                    <QRCode value={mfa.mfaUri} style={mfaQrCodeStyle}/>
+                    <span style={instructionsStyle}><b>Scan the QR Code with your Authenticator App and enter your TOTP code below</b></span>
+                    <span style={mfaQrCodeStyle}>
+                    <QRCode value={mfa.mfaUri} />
+                    </span>
                     <input id='mfaInput' autoComplete='off' placeholder={'Multi-Factor Authentication Code'} value={mfa.mfaCode} onChange={handleChangeMfaCode} style={mfaCodeInputStyle}></input>
-                    <button id='button' style={loginButtonStyle} onClick={null}> Confirm MFA </button>
+                    <button id='button' style={loginButtonStyle} onClick={null}> Submit MFA </button>
                 </div>
                 : null}
 
@@ -243,7 +283,7 @@ export default function Login() {
                 // request totp
                 <div style={pageFormat}>
                     <input id='mfaInput' autoComplete='off' placeholder={'Multi-Factor Authentication Code'} value={mfa.mfaCode} onChange={handleChangeMfaCode} style={mfaCodeInputStyle}></input>
-                    <button id='button' style={loginButtonStyle} onClick={null}> Confirm MFA </button>
+                    <button id='button' style={loginButtonStyle} onClick={null}> Submit MFA </button>
                 </div>
                 : null}
 
@@ -254,6 +294,14 @@ export default function Login() {
                     <input placeholder={"Password"} value={state.password} onChange={handleChangePassword} type='password' style={inputPasswordStyle}></input>
                     <button style={loginButtonStyle} onClick={(e) => login(state.username, state.password, state.newPassword)}> Login </button>
                     <button style={loginButtonStyle} onClick={(e) => navigate('/resetPassword')}> Password Recovery </button>
+                </div>
+                : null}
+
+                {loginStage === 'changeToTotp' ?
+                <div style={pageFormat}>
+                    <span style={instructionsStyle}><b>Authenticator Apps Offer Better Security</b></span>
+                    <button style={loginButtonStyle} onClick={switchToTotp}> Switch to Authenticator App </button>
+                    <button style={loginButtonStyle} onClick={null}> Continue with SMS </button>
                 </div>
                 : null}
             </CardContent>
@@ -269,7 +317,7 @@ const pageFormat = {
     padding: '15px',
 };
 
-const passwordWarningStyle = {
+const instructionsStyle = {
     textAlign: 'center',
     fontSize: '20px',
     width: '400px',
@@ -298,8 +346,10 @@ const loginButtonStyle = {
 };
 
 const mfaQrCodeStyle = {
+    textAlign: 'center',
     width: 'auto',
     height: 'auto',
+    paddingTop: '5px',
 };
 
 const mfaCodeInputStyle = {
