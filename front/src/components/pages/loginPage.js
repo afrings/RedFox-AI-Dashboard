@@ -61,7 +61,7 @@ export default function Login() {
     const handleChangeNewPassword = (event) => {
         setState((prevState) => ({...prevState, newPassword: event.target.value}));
         if (loginStage === 'requestNewPassword') checkPasswords(state.password, event.target.value);
-    }
+    };
 
     const checkPasswords = (password, newPassword) => {
         if (password !== newPassword && password.length > 0 && newPassword.length > 0) {
@@ -71,11 +71,7 @@ export default function Login() {
         } else {
             setPasswordWarning({showPasswordWarning: true, passwordWarningMessage: ''});
         }
-    }
-
-    const onChange = (value) => {
-        console.log('Captcha value: ', value);
-    }
+    };
 
     const signInWithNewPassword = async(password) => {
         // store the temporary password to be used automatically with next signIn
@@ -137,7 +133,7 @@ export default function Login() {
                 totp = await totpPromise;
             }
         }
-    }
+    };
 
     const switchToTotp = async() => {
         setMfa((prevState) => ({...prevState, mfaCode: ''}))
@@ -164,7 +160,14 @@ export default function Login() {
                 totp = await totpPromise;
             }
         }
-    }
+    };
+
+    const continueWithSMS = async() => {
+        if(document.getElementById('showAgain').checked){
+            await updateMFAPreference({sms:'PREFERRED'});
+        }
+        navigate('/main');
+    };
 
     const login = async(username, password, tempPassword) => {
         try{
@@ -280,8 +283,8 @@ export default function Login() {
                 // request totp
                 <div style={pageFormat}>
                     {mfa.mfaMethod === 'TOTP' ? 
-                    <span style={instructionsStyle}><b>Check your Authenticator App and enter your TOTP code below</b></span>
-                    : <span style={instructionsStyle}><b>Check your phone and enter your SMS code below</b></span>}
+                    <span style={instructionsStyle}><b>Please check your Authenticator App and enter your TOTP code below</b></span>
+                    : <span style={instructionsStyle}><b>Please check your phone and enter your SMS code below</b></span>}
                     <input id='mfaInput' autoComplete='off' placeholder={'Multi-Factor Authentication Code'} value={mfa.mfaCode} onChange={handleChangeMfaCode} style={mfaCodeInputStyle}></input>
                     <button id='button' style={loginButtonStyle} onClick={null}> Submit MFA </button>
                 </div>
@@ -301,7 +304,11 @@ export default function Login() {
                 <div style={pageFormat}>
                     <span style={instructionsStyle}><b>Authenticator Apps Offer Better Security</b></span>
                     <button style={loginButtonStyle} onClick={switchToTotp}> Switch to Authenticator App </button>
-                    <button style={loginButtonStyle} onClick={(e) => navigate('/main')}> Continue with SMS </button>
+                    <button style={loginButtonStyle} onClick={continueWithSMS}> Continue with SMS </button>
+                    <div style={checkBoxStyle}>
+                        <input type='checkbox' id='showAgain' name='showAgain' value='change'></input>
+                        <label for='showAgain'>Don't Show this Message Again</label>
+                    </div>
                 </div>
                 : null}
             </CardContent>
@@ -362,4 +369,8 @@ const wrongPasswordMessageStyle = {
     color: 'red',
     textAlign: 'center',
     fontFamily: 'Arial',
+}
+
+const checkBoxStyle = {
+    textAlign: 'center'
 }
